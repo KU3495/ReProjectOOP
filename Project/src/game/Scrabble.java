@@ -135,8 +135,15 @@ public class Scrabble extends JFrame implements MouseListener{
 		JButton ex = (JButton)e.getSource();
 		for(int i=0;i<handButton.length;i++) {
 			if(ex.equals(handButton[i])) {
-				handButton[i].setText("5");
+				if(handButton[i].getBackground().equals(Color.CYAN)){
+					System.out.println("In Here");
+					handButton[i].setBackground(Color.RED);
+				}
+				else {
+					handButton[i].setBackground(Color.CYAN);
 				System.out.println("Test");
+				}
+				
 			}
 				
 		}
