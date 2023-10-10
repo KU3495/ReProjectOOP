@@ -21,7 +21,7 @@ public class Scrabble extends JFrame implements MouseListener{
 	private int i=0,j=0;
 	public JPanel MainPanel=new JPanel();
 	public JPanel HandPanel=new JPanel();
-	
+	public String keep = "";
 	private int[][] boardarray={
             {4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4},
             {0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0},
@@ -104,9 +104,7 @@ public class Scrabble extends JFrame implements MouseListener{
 			handButton[i].addMouseListener(this);
 			HandPanel.add(handButton[i]);
 		}
-		handButton[6]= new JButton("SWAP");
-		HandPanel.add(handButton[6]);
-		
+
 		JPanel TestPanel=new JPanel();
 		TestPanel.setPreferredSize(new Dimension(600,50));
 		TestPanel.setAlignmentX(JComponent.LEFT_ALIGNMENT);
@@ -121,7 +119,15 @@ public class Scrabble extends JFrame implements MouseListener{
 		/*LayerPane.add(MainPanel, Integer.valueOf(0));
 		LayerPane.add(HandPanel, Integer.valueOf(0));
 		LayerPane.add(TestPanel, Integer.valueOf(1));*/
-
+		
+		//Test
+		for(int i=0;i<boardButton.length;i++) {
+			for(int j=0;j<boardButton[i].length;j++) {
+				boardButton[i][j].addMouseListener(this);
+			}	
+		}
+		//Test
+		
 		setSize(1000,800);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -141,11 +147,31 @@ public class Scrabble extends JFrame implements MouseListener{
 				}
 				else {
 					handButton[i].setBackground(Color.CYAN);
-				System.out.println("Test");
+					keep=String.valueOf(handButton[i].getText());
+					System.out.println("Test "+keep);
 				}
 				
 			}
 				
+		}
+		for(int i=0;i<boardButton.length;i++) {
+			for(int j=0;j<boardButton[i].length;j++) {
+				if(ex.equals(boardButton[i][j])) {
+					if(!boardButton[i][j].getText().equals("")) {
+						boardButton[i][j].setText("");
+						System.out.println("in null");
+						boardButton[i][j].setBackground(Color.DARK_GRAY);
+					}	
+					else {
+						boardButton[i][j].setText(String.valueOf(keep));
+						boardButton[i][j].setBackground(Color.WHITE);
+						boardButton[i][j].setIcon(null);
+						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
+						System.out.println(keep);
+					}
+					
+				}
+			}	
 		}
 	}
 
