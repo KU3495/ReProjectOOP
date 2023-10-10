@@ -104,8 +104,8 @@ public class Scrabble extends JFrame implements MouseListener{
 			handButton[i].addMouseListener(this);
 			HandPanel.add(handButton[i]);
 		}
-		handButton[6]= new JButton("SWAP");
-		HandPanel.add(handButton[6]);
+		//handButton[6]= new JButton("SWAP");
+		//HandPanel.add(handButton[6]);
 		
 		JPanel TestPanel=new JPanel();
 		TestPanel.setPreferredSize(new Dimension(600,50));
@@ -139,7 +139,6 @@ public class Scrabble extends JFrame implements MouseListener{
 					handButton[i].setBackground(Color.YELLOW);
 					System.out.println("Test");
 				}
-				
 			}
 		}
 	}
