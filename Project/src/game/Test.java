@@ -12,7 +12,7 @@ public class Test extends JFrame{
 		super(title);
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
-		MainPane.add(gameBoard);
+		MainPane.add(gameBoard.getBoard());
 		setSize(1000,800);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

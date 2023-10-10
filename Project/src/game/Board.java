@@ -74,6 +74,10 @@ public class Board{
 			}
 		}
 	}
+	
+	public JPanel getBoard() {
+		return MainPanel;
+	}
 
 
 }
