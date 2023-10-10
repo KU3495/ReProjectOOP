@@ -15,13 +15,13 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 public class Scrabble extends JFrame implements MouseListener{
-	public JButton[][] boardButton=new JButton[15][15];
-	public JButton[] handButton=new JButton[7];
+	private JButton[][] boardButton=new JButton[15][15];
+	private JButton[] handButton=new JButton[7];
 	private int[] handarray=new int[7];
 	private int i=0,j=0;
-	public JPanel MainPanel=new JPanel();
-	public JPanel HandPanel=new JPanel();
-	public String keep = "";
+	private JPanel MainPanel=new JPanel();
+	private JPanel HandPanel=new JPanel();
+	private String keep = "";
 	private int[][] boardarray={
             {4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4},
             {0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0},
