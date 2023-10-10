@@ -1,21 +1,14 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Board{
@@ -77,6 +70,9 @@ public class Board{
 	
 	public JPanel getBoard() {
 		return MainPanel;
+	}
+	public void setBoardButton(int i,int j,String key) {
+		
 	}
 
 
