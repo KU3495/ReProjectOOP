@@ -11,7 +11,7 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class TestDict {
-	private static int count = 0;
+	private static int count = 1;
 	public static void main(String [] args) throws IOException {
 		Dictionary<String, Integer> dict = new Hashtable<String, Integer>();
 		Scanner sc = new Scanner(System.in);
