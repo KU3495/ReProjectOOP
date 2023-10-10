@@ -101,6 +101,7 @@ public class Scrabble extends JFrame implements MouseListener{
 		for(i=0; i<7; i++) {
 			char randomLetter = (char) (random.nextInt(26) + 'A');
 			handButton[i]= new JButton(String.valueOf(randomLetter));
+			handButton[i].addMouseListener(this);
 			HandPanel.add(handButton[i]);
 		}
 		handButton[6]= new JButton("SWAP");
@@ -117,11 +118,10 @@ public class Scrabble extends JFrame implements MouseListener{
 		MainPane.add(MainPanel);
 		MainPane.add(HandPanel);
 		//MainPane.add(TestPanel);
-
 		/*LayerPane.add(MainPanel, Integer.valueOf(0));
 		LayerPane.add(HandPanel, Integer.valueOf(0));
 		LayerPane.add(TestPanel, Integer.valueOf(1));*/
-		
+
 		setSize(1000,800);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -132,8 +132,14 @@ public class Scrabble extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		JButton ex = (JButton)e.getSource();
+		for(int i=0;i<handButton.length;i++) {
+			if(ex.equals(handButton[i])) {
+				handButton[i].setText("5");
+				System.out.println("Test");
+			}
+				
+		}
 	}
 
 	@Override
