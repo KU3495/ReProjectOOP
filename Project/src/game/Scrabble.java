@@ -15,13 +15,22 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 public class Scrabble extends JFrame implements MouseListener{
-	private JButton[][] boardButton=new JButton[15][15];
+	private static final int ROW=15, COL=15;
+	
+	private JButton[][] boardButton=new JButton[ROW][COL];
 	private JButton[] handButton=new JButton[7];
 	private int[] handarray=new int[7];
 	private int i=0,j=0;
 	private JPanel MainPanel=new JPanel();
 	private JPanel HandPanel=new JPanel();
 	private String keep = "";
+	private Boolean flagSelect=false;
+	
+	ImageIcon icon2w=new ImageIcon(this.getClass().getResource("/2Wnew.png"));
+	ImageIcon icon3w=new ImageIcon(this.getClass().getResource("/3Wnew.png"));
+	ImageIcon icon2L=new ImageIcon(this.getClass().getResource("/2Lnew.png"));
+	ImageIcon icon3L=new ImageIcon(this.getClass().getResource("/3Lnew.png"));
+	
 	private int[][] boardarray={
             {4, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 4},
             {0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0},
@@ -30,7 +39,7 @@ public class Scrabble extends JFrame implements MouseListener{
             {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0},
             {0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0},
-            {4, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 2, 0, 0, 4},
+            {4, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 4},
             {0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0},
             {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0},
@@ -49,25 +58,30 @@ public class Scrabble extends JFrame implements MouseListener{
 		}
 	}
 	
+	public void ShowPlace(int rows, int cals) {
+		if(rows+1<ROW) {
+			boardButton[rows++][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));			
+		}
+	}
+	
 	public Scrabble(String title) {
 		super(title);
 		Container MainPane= getContentPane();
 		JLayeredPane LayerPane = getLayeredPane();
-		ImageIcon icon2w=new ImageIcon(this.getClass().getResource("/2Wnew.png"));
-		ImageIcon icon3w=new ImageIcon(this.getClass().getResource("/3Wnew.png"));
-		ImageIcon icon2L=new ImageIcon(this.getClass().getResource("/2Lnew.png"));
-		ImageIcon icon3L=new ImageIcon(this.getClass().getResource("/3Lnew.png"));
 		
 		MainPanel.setPreferredSize(new Dimension(675,675));
 		MainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		MainPanel.setLayout(new GridLayout(15,15));
+		MainPanel.setLayout(new GridLayout(ROW,COL));
 		MainPanel.setMaximumSize(new Dimension(675, 675));
 	    MainPanel.setBorder(BorderFactory.createTitledBorder("Test Board"));
 	    //getContentPane().add(MainPanel);
 	    
-		for(i=0; i<15; i++) {
-			for(j=0; j<15; j++) {
+		for(i=0; i<COL; i++) {
+			for(j=0; j<ROW; j++) {
 				boardButton[i][j]= new JButton("");
+				boardButton[i][j].setBackground(Color.DARK_GRAY);
+				boardButton[i][j].setForeground(Color.BLACK);
+				boardButton[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				switch(boardarray[i][j]) {
 				case 1: 
 						boardButton[i][j].setIcon(icon2L);
@@ -81,11 +95,15 @@ public class Scrabble extends JFrame implements MouseListener{
 				case 4: 
 						boardButton[i][j].setIcon(icon3w); 
 				break;
+				case 5: 
+						//boardButton[i][j].setText("S"); 
+						boardButton[i][j].setForeground(Color.YELLOW); 
+						boardButton[i][j].setBackground(Color.ORANGE); 
+				break;
 				}
 				
 				//boardButton[i][j].setFont(new Font("MS UI Gothic", Font.BOLD, 9));
 				//boardButton[i][j].setForeground(Color.WHITE);
-				boardButton[i][j].setBackground(Color.DARK_GRAY);
 				MainPanel.add(boardButton[i][j]);
 			}
 		}
@@ -101,6 +119,7 @@ public class Scrabble extends JFrame implements MouseListener{
 		for(i=0; i<7; i++) {
 			char randomLetter = (char) (random.nextInt(26) + 'A');
 			handButton[i]= new JButton(String.valueOf(randomLetter));
+			handButton[i].setBackground(Color.CYAN);
 			handButton[i].addMouseListener(this);
 			HandPanel.add(handButton[i]);
 		}
@@ -141,14 +160,17 @@ public class Scrabble extends JFrame implements MouseListener{
 		JButton ex = (JButton)e.getSource();
 		for(int i=0;i<handButton.length;i++) {
 			if(ex.equals(handButton[i])) {
-				if(handButton[i].getBackground().equals(Color.CYAN)){
+				if(handButton[i].getBackground().equals(Color.RED) && flagSelect==true){
+					keep="";
 					System.out.println("In Here");
-					handButton[i].setBackground(Color.RED);
-				}
-				else {
 					handButton[i].setBackground(Color.CYAN);
+					flagSelect=false;
+				}
+				else if(flagSelect==false){
+					handButton[i].setBackground(Color.RED);
 					keep=String.valueOf(handButton[i].getText());
 					System.out.println("Test "+keep);
+					flagSelect=true;
 				}
 				
 			}
@@ -161,9 +183,29 @@ public class Scrabble extends JFrame implements MouseListener{
 						boardButton[i][j].setText("");
 						System.out.println("in null");
 						boardButton[i][j].setBackground(Color.DARK_GRAY);
+						switch(boardarray[i][j]) {
+						case 1: 
+								boardButton[i][j].setIcon(icon2L);
+						break;
+						case 2: 
+								boardButton[i][j].setIcon(icon3L); 
+						break;
+						case 3: 
+								boardButton[i][j].setIcon(icon2w);
+						break;
+						case 4: 
+								boardButton[i][j].setIcon(icon3w); 
+						break;
+						case 5: 
+							boardButton[i][j].setForeground(Color.YELLOW); 
+							boardButton[i][j].setBackground(Color.ORANGE); 
+						break;
+						}
 					}	
 					else {
+						if(keep=="") return;
 						boardButton[i][j].setText(String.valueOf(keep));
+						boardButton[i][j].setForeground(Color.BLACK);
 						boardButton[i][j].setBackground(Color.WHITE);
 						boardButton[i][j].setIcon(null);
 						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
