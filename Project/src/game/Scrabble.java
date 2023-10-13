@@ -60,7 +60,19 @@ public class Scrabble extends JFrame implements MouseListener{
 	
 	public void ShowPlace(int rows, int cals) {
 		if(rows+1<ROW) {
-			boardButton[rows++][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));			
+			boardButton[rows++][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+		}
+		
+		if(rows-1>=0) {
+			boardButton[rows--][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));			
+		}
+		
+		if(cals+1<ROW) {
+			boardButton[rows][cals++].setBorder(BorderFactory.createLineBorder(Color.ORANGE));			
+		}
+		
+		if(cals-1>=0) {
+			boardButton[rows][cals--].setBorder(BorderFactory.createLineBorder(Color.ORANGE));			
 		}
 	}
 	
@@ -209,6 +221,7 @@ public class Scrabble extends JFrame implements MouseListener{
 						boardButton[i][j].setBackground(Color.WHITE);
 						boardButton[i][j].setIcon(null);
 						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
+						ShowPlace(i, j);
 						System.out.println(keep);
 					}
 					
