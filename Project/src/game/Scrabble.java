@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.Random;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.MouseInputListener;
 
 public class Scrabble extends JFrame implements MouseListener{
@@ -148,7 +149,8 @@ public class Scrabble extends JFrame implements MouseListener{
 				case 5: 
 						//boardButton[i][j].setText("S"); 
 						boardButton[i][j].setForeground(Color.YELLOW); 
-						boardButton[i][j].setBackground(Color.ORANGE); 
+						boardButton[i][j].setBackground(Color.ORANGE);
+						boardButton[i][j].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 				break;
 				}
 				
@@ -248,13 +250,16 @@ public class Scrabble extends JFrame implements MouseListener{
 						break;
 						case 5: 
 							boardButton[i][j].setForeground(Color.YELLOW); 
-							boardButton[i][j].setBackground(Color.ORANGE); 
+							boardButton[i][j].setBackground(Color.ORANGE);
+							boardButton[i][j].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+
 						break;
 						}
 						DisShowPlace(i, j);
 					}	
 					else {
-						if(keep=="") return;
+						LineBorder border = (LineBorder) boardButton[i][j].getBorder();
+						if(keep=="" || border.getLineColor()!=Color.ORANGE) return;
 						boardButton[i][j].setText(String.valueOf(keep));
 						boardButton[i][j].setForeground(Color.BLACK);
 						boardButton[i][j].setBackground(Color.WHITE);
