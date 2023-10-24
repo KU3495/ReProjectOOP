@@ -22,7 +22,7 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 	private JButton[] handButton=new JButton[7];
 	private int[] handarray=new int[7];
 	private int[][] statusShow=new int[ROW][COL];
-	private int i=0,j=0;
+	private int i=0,j=0,memhand=0;
 	private JPanel MainPanel=new JPanel();
 	private JPanel HandPanel=new JPanel();
 	private String keep = "";
@@ -90,8 +90,7 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 		int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
 		
 		try {
-			if(boardButton[E][cals].getText()=="") 
-			{
+			if(boardButton[E][cals].getText()=="") {
 				statusShow[E][cals]--;
 				if(statusShow[E][cals]==0) {
 					boardButton[E][cals].setBorder(BorderFactory.createLineBorder(Color.BLACK));									
@@ -119,6 +118,26 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 				}
 			}
 		}catch(Exception e) {}
+	}
+	
+	void showAllPlace() {
+		int rows,cals;
+		for(rows=0; rows<ROW; rows++) {
+			for(cals=0; cals<COL; cals++) {
+				int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
+				try {
+					if(boardButton[E][cals].getText()!="" || boardButton[W][cals].getText()!="" || 
+						boardButton[rows][N].getText()!="" || boardButton[rows][S].getText()!="") {
+						
+						boardButton[rows][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+					}else {
+						boardButton[rows][cals].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+					}					
+				}catch(Exception e) {
+					
+				}
+			}
+		}
 	}
 	
 	public Test_Scrabble(String title) {
@@ -229,10 +248,9 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 					keep=String.valueOf(handButton[i].getText());
 					System.out.println("Test "+keep);
 					flagSelect=true;
+					memhand=i;
 				}
-				
 			}
-				
 		}
 		for(int i=0;i<boardButton.length;i++) {
 			for(int j=0;j<boardButton[i].length;j++) {
@@ -261,7 +279,9 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 
 						break;
 						}
-						UnShowPlace(i, j);
+						showAllPlace();
+						boardButton[7][7].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+						//UnShowPlace(i, j);
 					}	
 					else {
 						LineBorder border = (LineBorder) boardButton[i][j].getBorder();
@@ -271,8 +291,12 @@ public class Test_Scrabble extends JFrame implements MouseListener{
 						boardButton[i][j].setBackground(Color.WHITE);
 						boardButton[i][j].setIcon(null);
 						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
-						ShowPlace(i, j);
+						//ShowPlace(i, j);
 						System.out.println(keep);
+						showAllPlace();
+						flagSelect=false;
+						handButton[memhand].setBackground(Color.CYAN);
+						keep="";
 					}
 					
 				}

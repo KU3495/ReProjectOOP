@@ -59,58 +59,20 @@ public class Scrabble extends JFrame implements MouseListener{
 		}
 	}
 	
-	public void ShowPlace(int rows, int cals) {
-		int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
-		
-		if(rows+1<ROW) {
-			if(boardButton[E][cals].getText()=="") {
-				boardButton[E][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));				
-			}
-		}
-		
-		if(rows-1>=0) {
-			if(boardButton[W][cals].getText()=="") {
-				boardButton[W][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));							
-			}
-		}
-		
-		if(cals+1<ROW) {
-			if(boardButton[rows][N].getText()=="") {
-				boardButton[rows][N].setBorder(BorderFactory.createLineBorder(Color.ORANGE));							
-			}
-		}
-		
-		if(cals-1>=0) {
-			if(boardButton[rows][S].getText()=="") {
-				boardButton[rows][S].setBorder(BorderFactory.createLineBorder(Color.ORANGE));							
-			}
-		}
-	}
-	
-	public void DisShowPlace(int rows, int cals) {
-		int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
-		
-		if(rows+1<ROW) {
-			if(boardButton[E][cals].getText()=="") {
-				boardButton[E][cals].setBorder(BorderFactory.createLineBorder(Color.BLACK));				
-			}
-		}
-		
-		if(rows-1>=0) {
-			if(boardButton[W][cals].getText()=="") {
-				boardButton[W][cals].setBorder(BorderFactory.createLineBorder(Color.BLACK));							
-			}
-		}
-		
-		if(cals+1<ROW) {
-			if(boardButton[rows][N].getText()=="") {
-				boardButton[rows][N].setBorder(BorderFactory.createLineBorder(Color.BLACK));							
-			}
-		}
-		
-		if(cals-1>=0) {
-			if(boardButton[rows][S].getText()=="") {
-				boardButton[rows][S].setBorder(BorderFactory.createLineBorder(Color.BLACK));							
+	void showAllPlace() {
+		int rows,cals;
+		for(rows=0; rows<ROW; rows++) {
+			for(cals=0; cals<COL; cals++) {
+				int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
+				try {
+					if(boardButton[E][cals].getText()!="" || boardButton[W][cals].getText()!="" || 
+						boardButton[rows][N].getText()!="" || boardButton[rows][S].getText()!="") {
+						
+						boardButton[rows][cals].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+					}else {
+						boardButton[rows][cals].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+					}					
+				}catch(Exception e) {}
 			}
 		}
 	}
@@ -255,7 +217,8 @@ public class Scrabble extends JFrame implements MouseListener{
 
 						break;
 						}
-						DisShowPlace(i, j);
+						showAllPlace();
+						boardButton[7][7].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 					}	
 					else {
 						LineBorder border = (LineBorder) boardButton[i][j].getBorder();
@@ -265,7 +228,7 @@ public class Scrabble extends JFrame implements MouseListener{
 						boardButton[i][j].setBackground(Color.WHITE);
 						boardButton[i][j].setIcon(null);
 						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
-						ShowPlace(i, j);
+						showAllPlace();
 						System.out.println(keep);
 					}
 					
