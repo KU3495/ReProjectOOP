@@ -11,12 +11,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class Test extends JFrame implements MouseListener{
+public class Main extends JFrame implements MouseListener{
 	private Board gameBoard;
 	private Player p1;
 	private Player p2;
 	private String keep = "";
-	public Test(String title){
+	public Main(String title){
 		super(title);
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
@@ -36,7 +36,7 @@ public class Test extends JFrame implements MouseListener{
 	}
 	
 	public static void main(String[] args) {
-		Test t = new Test("Scrabble");
+		Main t = new Main("Scrabble");
 
 	}
 
