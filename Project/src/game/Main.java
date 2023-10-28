@@ -44,9 +44,9 @@ public class Main extends JFrame implements MouseListener{
 				p1.setHandButton(i);
 				keep=String.valueOf(p1.getHandButton(i).getText());
 				System.out.println("Test "+keep);
+				p1.getHandButton(i).setText(null);
 			}
 		}
-		
 	}
 
 	@Override

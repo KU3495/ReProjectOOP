@@ -12,11 +12,9 @@ import java.util.Scanner;
 
 public class TestDict {
 	private static int count = 1;
-	public static void main(String [] args) throws IOException {
+	
+	public TestDict(String wordList) throws IOException {
 		Dictionary<String, Integer> dict = new Hashtable<String, Integer>();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Please Enter your word : ");
-		String test = sc.next();
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		String fileURL = classLoader.getResource("dictionary.txt").getFile();
 		//File tx = new File(class.TestDict.getResource("/dictionary.txt"));
@@ -30,7 +28,7 @@ public class TestDict {
 		Enumeration<String> k = dict.keys();
         while (k.hasMoreElements()) {
             String key = k.nextElement();
-            if(test.equals(key)) {
+            if(wordList.equals(key)) {
             	System.out.println("Found it "+dict.get(key));
             }
             

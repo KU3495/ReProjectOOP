@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.*;
@@ -24,8 +25,9 @@ public class Scrabble extends JFrame implements MouseListener{
 	private int i=0,j=0,memhand=0;
 	private JPanel MainPanel=new JPanel();
 	private JPanel HandPanel=new JPanel();
-	private String keep = "";
+	private String keep = "", wordList="";
 	private Boolean flagSelect=false;
+	
 	
 	ImageIcon icon2w=new ImageIcon(this.getClass().getResource("/2Wnew.png"));
 	ImageIcon icon3w=new ImageIcon(this.getClass().getResource("/3Wnew.png"));
@@ -186,6 +188,7 @@ public class Scrabble extends JFrame implements MouseListener{
 					System.out.println("Test "+keep);
 					flagSelect=true;
 					memhand=i;
+					
 				}
 				
 			}
@@ -234,7 +237,14 @@ public class Scrabble extends JFrame implements MouseListener{
 						showAllPlace();
 						flagSelect=false;
 						handButton[memhand].setBackground(Color.CYAN);
+						handButton[memhand].setText("");
+						wordList+=keep;
 						keep="";
+						try {
+							TestDict testdict = new TestDict(wordList);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
 					}
 					
 				}
