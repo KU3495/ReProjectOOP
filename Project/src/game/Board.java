@@ -23,7 +23,7 @@ public class Board{
             {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0},
             {0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0},
-            {4, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 2, 0, 0, 4},
+            {4, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 4},
             {0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0},
             {0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0},
             {0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0},
@@ -60,6 +60,11 @@ public class Board{
 				break;
 				case 4: 
 						boardButton[i][j].setIcon(icon3w); 
+				break;
+				case 5: 
+						boardButton[i][j].setForeground(Color.YELLOW); 
+						boardButton[i][j].setBackground(Color.ORANGE);
+						boardButton[i][j].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 				break;
 				}
 				boardButton[i][j].setBackground(Color.DARK_GRAY);
