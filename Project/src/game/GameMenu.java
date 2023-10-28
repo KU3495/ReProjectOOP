@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameMenu extends JFrame implements MouseListener{
@@ -30,6 +31,7 @@ public class GameMenu extends JFrame implements MouseListener{
 
 		mainPanel.add(mainButton[0]);
 		mainPanel.add(mainButton[1]);
+		MainPane.add(new JLabel("<html><h1><strong><i>Scrabble</i></strong></h1><hr></html>"));
 		MainPane.add(mainPanel);
 
 		setSize(1000,800);
