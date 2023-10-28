@@ -21,7 +21,7 @@ public class Scrabble extends JFrame implements MouseListener{
 	private JButton[][] boardButton=new JButton[ROW][COL];
 	private JButton[] handButton=new JButton[7];
 	private int[] handarray=new int[7];
-	private int i=0,j=0;
+	private int i=0,j=0,memhand=0;
 	private JPanel MainPanel=new JPanel();
 	private JPanel HandPanel=new JPanel();
 	private String keep = "";
@@ -185,6 +185,7 @@ public class Scrabble extends JFrame implements MouseListener{
 					keep=String.valueOf(handButton[i].getText());
 					System.out.println("Test "+keep);
 					flagSelect=true;
+					memhand=i;
 				}
 				
 			}
@@ -228,8 +229,12 @@ public class Scrabble extends JFrame implements MouseListener{
 						boardButton[i][j].setBackground(Color.WHITE);
 						boardButton[i][j].setIcon(null);
 						boardButton[i][j].setFont(new Font("Cordia New",Font.PLAIN,15));
-						showAllPlace();
+						//ShowPlace(i, j);
 						System.out.println(keep);
+						showAllPlace();
+						flagSelect=false;
+						handButton[memhand].setBackground(Color.CYAN);
+						keep="";
 					}
 					
 				}
