@@ -17,8 +17,10 @@ public class TestDict {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please Enter your word : ");
 		String test = sc.next();
-		File tx = new File("dictionary.txt");
-		Reader r = new FileReader(tx);
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		String fileURL = classLoader.getResource("dictionary.txt").getFile();
+		//File tx = new File(class.TestDict.getResource("/dictionary.txt"));
+		Reader r = new FileReader(fileURL);
 		BufferedReader br = new BufferedReader(r);
 		String s = "";
 		while((s = br.readLine()) != null) {
