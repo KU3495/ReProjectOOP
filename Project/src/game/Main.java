@@ -34,12 +34,6 @@ public class Main extends JFrame implements MouseListener{
 		setResizable(false);
 		setVisible(true);
 	}
-	
-	public static void main(String[] args) {
-		Main t = new Main("Scrabble");
-		//GameMenu opengame= new GameMenu("Scrabble");
-
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
