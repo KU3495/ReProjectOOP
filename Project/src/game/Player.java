@@ -20,6 +20,7 @@ public class Player {
 		for(i=0; i<7; i++) {
 			char randomLetter = (char) (random.nextInt(26) + 'A');
 			handButton[i]= new JButton(String.valueOf(randomLetter));
+			handButton[i].setBackground(Color.CYAN);
 			HandPanel.add(handButton[i]);
 		}
 	}

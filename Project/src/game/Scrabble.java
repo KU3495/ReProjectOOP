@@ -121,6 +121,7 @@ public class Scrabble extends JFrame implements MouseListener{
 				//boardButton[i][j].setFont(new Font("MS UI Gothic", Font.BOLD, 9));
 				//boardButton[i][j].setForeground(Color.WHITE);
 				MainPanel.add(boardButton[i][j]);
+				boardButton[i][j].addMouseListener(this);
 			}
 		}
 		
@@ -154,14 +155,6 @@ public class Scrabble extends JFrame implements MouseListener{
 		/*LayerPane.add(MainPanel, Integer.valueOf(0));
 		LayerPane.add(HandPanel, Integer.valueOf(0));
 		LayerPane.add(TestPanel, Integer.valueOf(1));*/
-		
-		//Test
-		for(int i=0;i<boardButton.length;i++) {
-			for(int j=0;j<boardButton[i].length;j++) {
-				boardButton[i][j].addMouseListener(this);
-			}	
-		}
-		//Test
 		
 		setSize(1000,800);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
