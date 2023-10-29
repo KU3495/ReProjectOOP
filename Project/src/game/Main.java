@@ -1,9 +1,15 @@
 package game;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -11,12 +17,14 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements MouseListener{
 	private static final int ROW=15, COL=15;
 	private Board gameBoard;
-	private Player p1, p2;
+	private Hand h1;
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
@@ -24,20 +32,30 @@ public class Main extends JFrame implements MouseListener{
 		super(title);
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
-		p1 = new Player();
-		MainPane.add(gameBoard.getBoard());
-		MainPane.add(p1.getPYHand());
+		h1 = new Hand();
 		for(int i=0;i<ROW;i++) {
 			for(int j=0;j<COL;j++) {
 				gameBoard.getBoardButton(i, j).addMouseListener(this);
 			}	
 		}
 		for(int i=0; i<7; i++) {
-			p1.getHandButton(i).addMouseListener(this);
+			h1.getHandButton(i).addMouseListener(this);
 		}
+		JTextArea textF=new JTextArea();
+		textF.setPreferredSize(new Dimension(280,670));
+		textF.setFont(new Font("Arial",Font.PLAIN, 50));
+		textF.setLineWrap(true);
+		textF.setEditable(false);
+		textF.setText("TEST");
 		
+		MainPane.add(gameBoard.getBoard());//ADD BOARD
+		MainPane.add(textF);
+		MainPane.add(h1.getPYHand()); //ADD HAND
+		MainPane.add(new JButton("SUBMIT"));
 		setSize(1000,800);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		getContentPane().setLayout(new FlowLayout(3));
+		//getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -67,17 +85,17 @@ public class Main extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
-		for(int i=0;i<p1.getHandButtonLength();i++) {
-			if(ex.equals(p1.getHandButton(i))) {
-				if(p1.getHandButton(i).getBackground().equals(Color.RED) && flagSelect==true){
+		for(int i=0;i<h1.getHandButtonLength();i++) {
+			if(ex.equals(h1.getHandButton(i))) {
+				if(h1.getHandButton(i).getBackground().equals(Color.RED) && flagSelect==true){
 					keep="";
 					System.out.println("In Here");
-					p1.getHandButton(i).setBackground(Color.CYAN);
+					h1.getHandButton(i).setBackground(Color.CYAN);
 					flagSelect=false;
 				}
 				else if(flagSelect==false){
-					p1.getHandButton(i).setBackground(Color.RED);
-					keep=String.valueOf(p1.getHandButton(i).getText());
+					h1.getHandButton(i).setBackground(Color.RED);
+					keep=String.valueOf(h1.getHandButton(i).getText());
 					System.out.println("Test "+keep);
 					flagSelect=true;
 					memhand=i;
@@ -109,8 +127,8 @@ public class Main extends JFrame implements MouseListener{
 						System.out.println(keep);
 						showAllPlace();
 						flagSelect=false;
-						p1.getHandButton(memhand).setBackground(Color.CYAN);
-						p1.getHandButton(memhand).setText("");
+						h1.getHandButton(memhand).setBackground(Color.CYAN);
+						h1.getHandButton(memhand).setText("");
 						wordList+=keep;
 						keep="";
 						try {

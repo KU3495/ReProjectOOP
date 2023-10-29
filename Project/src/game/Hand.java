@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class Player {
+public class Hand {
 	private JButton[] handButton=new JButton[7];
 	private int[] handarray=new int[7];
 	private int i=0,j=0;
@@ -24,7 +24,7 @@ public class Player {
 			HandPanel.add(handButton[i]);
 		}
 	}
-	public Player() {
+	public Hand() {
 		HandPanel.setPreferredSize(new Dimension(600,50));
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		HandPanel.setLayout(new GridLayout(1,7));
