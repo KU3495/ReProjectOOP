@@ -25,6 +25,7 @@ public class TestDict {
 			String sp = s;
 			dict.put(sp, count++);
 		}
+		System.out.println(wordList+"+Hello");
 		Enumeration<String> k = dict.keys();
         while (k.hasMoreElements()) {
             String key = k.nextElement();

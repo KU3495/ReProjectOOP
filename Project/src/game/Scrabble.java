@@ -234,9 +234,9 @@ public class Scrabble extends JFrame implements MouseListener{
 						wordList+=keep;
 						keep="";
 						try {
-							TestDict testdict = new TestDict(wordList);
-							HashLetter hash = new HashLetter();
-							//hash.calScore(wordList);
+							//TestDict testdict = new TestDict("HALWEA");
+							/*HashLetter hash = new HashLetter();
+							hash.calScore(wordList);*/
 							
 						} catch (Exception e1) {
 							e1.printStackTrace();
