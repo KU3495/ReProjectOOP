@@ -29,7 +29,7 @@ public class Hand {
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		HandPanel.setLayout(new GridLayout(1,7));
 		HandPanel.setMaximumSize(new Dimension(600, 50));
-		HandPanel.setBorder(BorderFactory.createTitledBorder("Test HAND"));
+		//HandPanel.setBorder(BorderFactory.createTitledBorder("Test HAND"));
 		RandomHand();
 	}
 	public JPanel getPYHand() {

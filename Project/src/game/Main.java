@@ -25,6 +25,8 @@ public class Main extends JFrame implements MouseListener{
 	private static final int ROW=15, COL=15;
 	private Board gameBoard;
 	private Hand h1;
+	private Options Op;
+	private TextDisplay TUI;
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
@@ -33,6 +35,9 @@ public class Main extends JFrame implements MouseListener{
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
 		h1 = new Hand();
+		Op = new Options();
+		TUI = new TextDisplay();
+		
 		for(int i=0;i<ROW;i++) {
 			for(int j=0;j<COL;j++) {
 				gameBoard.getBoardButton(i, j).addMouseListener(this);
@@ -41,17 +46,14 @@ public class Main extends JFrame implements MouseListener{
 		for(int i=0; i<7; i++) {
 			h1.getHandButton(i).addMouseListener(this);
 		}
-		JTextArea textF=new JTextArea();
-		textF.setPreferredSize(new Dimension(280,670));
-		textF.setFont(new Font("Arial",Font.PLAIN, 50));
-		textF.setLineWrap(true);
-		textF.setEditable(false);
-		textF.setText("TEST");
+		for(int i=0; i<3; i++) {
+			Op.getOpButton(i).addMouseListener(this);
+		}
 		
 		MainPane.add(gameBoard.getBoard());//ADD BOARD
-		MainPane.add(textF);
+		MainPane.add(TUI.getScroll());
 		MainPane.add(h1.getPYHand()); //ADD HAND
-		MainPane.add(new JButton("SUBMIT"));
+		MainPane.add(Op.getOption()); //ADD OPTION
 		setSize(1000,800);
 		
 		getContentPane().setLayout(new FlowLayout(3));
@@ -144,6 +146,12 @@ public class Main extends JFrame implements MouseListener{
 					
 				}
 			}	
+		}
+		
+		for(int i=0;i<3;i++) {
+			if(ex.equals(Op.getOpButton(0))) {
+				Op.getOpButton(0).setBackground(Color.BLACK);
+			}
 		}
 	}
 
