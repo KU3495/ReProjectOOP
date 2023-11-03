@@ -27,9 +27,13 @@ public class Main extends JFrame implements MouseListener{
 	private Hand h1;
 	private Options Op;
 	private TextDisplay TUI;
+	private Player[] player;
+	private Player player1=new Player();
+	private Player player2=new Player();
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
+	
 	public Main(String title){
 		super(title);
 		Container MainPane= getContentPane();
@@ -37,6 +41,7 @@ public class Main extends JFrame implements MouseListener{
 		h1 = new Hand();
 		Op = new Options();
 		TUI = new TextDisplay();
+		player = new Player[2];
 		
 		for(int i=0;i<ROW;i++) {
 			for(int j=0;j<COL;j++) {
@@ -50,13 +55,15 @@ public class Main extends JFrame implements MouseListener{
 			Op.getOpButton(i).addMouseListener(this);
 		}
 		
-		MainPane.add(gameBoard.getBoard());//ADD BOARD
-		MainPane.add(TUI.getScroll());
+		MainPane.add(gameBoard.getBoard()); //ADD BOARD
+		//MainPane.add(player1.getScroll()); //ADD PLAYER1
+		//MainPane.add(player2.getScroll()); //ADD PLAYER2
+		MainPane.add(TUI.getScroll()); //ADD TEXTAREA
 		MainPane.add(h1.getPYHand()); //ADD HAND
 		MainPane.add(Op.getOption()); //ADD OPTION
 		setSize(1000,800);
 		
-		getContentPane().setLayout(new FlowLayout(3));
+		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
 		//getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

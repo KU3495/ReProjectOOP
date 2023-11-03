@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -12,8 +13,9 @@ public class TextDisplay {
 	private JScrollPane scroll= new JScrollPane();
 	
 	public TextDisplay() {
+		//textF.setPreferredSize(new Dimension(280,270));
 		textF.setPreferredSize(new Dimension(280,670));
-		textF.setFont(new Font("Arial",Font.PLAIN, 50));
+		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
@@ -25,7 +27,6 @@ public class TextDisplay {
 		scroll = new JScrollPane(textF);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	    scroll.setBounds(10, 11, 455, 249);
 	}
 
 	public JTextArea getTextF() {

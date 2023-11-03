@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Options {
-	private JPanel option=new JPanel();
+	private JPanel OptionPanel=new JPanel();
 	private JButton Submit=new JButton("Submit");
 	private JButton Swap=new JButton("Swap");
 	private JButton Skip=new JButton("Skip");
@@ -18,9 +19,11 @@ public class Options {
 		OpButton[1]=Swap;
 		OpButton[2]=Skip;
 		
-		option.add(OpButton[0]);
-		option.add(OpButton[1]);
-		option.add(OpButton[2]);
+		OptionPanel.add(OpButton[0]);
+		OptionPanel.add(OpButton[1]);
+		OptionPanel.add(OpButton[2]);
+		OptionPanel.setBackground(Color.GRAY);
+
 	}
 	
 	public JButton getOpButton(int i) {
@@ -28,6 +31,6 @@ public class Options {
 	}
 
 	public JPanel getOption() {
-		return option;
+		return OptionPanel;
 	}
 }

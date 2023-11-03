@@ -29,6 +29,7 @@ public class Hand {
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		HandPanel.setLayout(new GridLayout(1,7));
 		HandPanel.setMaximumSize(new Dimension(600, 50));
+		HandPanel.setBackground(Color.GRAY);
 		//HandPanel.setBorder(BorderFactory.createTitledBorder("Test HAND"));
 		RandomHand();
 	}
