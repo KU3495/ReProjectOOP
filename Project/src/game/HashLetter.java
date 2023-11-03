@@ -24,6 +24,7 @@ public class HashLetter {
 	}
 	public void calScore(String word)
 	{
+		score=0;
 		String temp="";
 		System.out.println("Hello");
 		for(int i=0;i<word.length();i++){
@@ -33,12 +34,12 @@ public class HashLetter {
 			
 		}
 		System.out.println("\nIn calScore met "+temp+" "+score);
-		score=0;
 	}
 	
 	public int getScore()
 	{
 		return score;
 	}
+	
 	
 }

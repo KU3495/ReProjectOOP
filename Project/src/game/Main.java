@@ -28,16 +28,16 @@ public class Main extends JFrame implements MouseListener{
 	private Board gameBoard;
 	private Hand h1;
 	private Options Op;
-	private TextDisplay TUI;
+	private TextOption TUI;
 	private Player[] player;
-	private Player player1=new Player();
-	private Player player2=new Player();
 	private JPanel TextPanel=new JPanel();
 	private int memhand=0;
 	private String keep = "", wordList="";
-	private boolean flagSelect=false;
+	private boolean flagSelect=false; 
+	private int flagPlayer=0;
 	private Dict testdict = null;
 	private HashLetter hash = null;
+	private int i,j;
 	
 	public Main(String title){
 		super(title);
@@ -47,29 +47,34 @@ public class Main extends JFrame implements MouseListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
 		h1 = new Hand();
 		Op = new Options();
-		TUI = new TextDisplay();
+		TUI = new TextOption();
 		player = new Player[2];
 		
-		for(int i=0;i<ROW;i++) {
-			for(int j=0;j<COL;j++) {
+		for(i=0;i<ROW;i++) {
+			for(j=0;j<COL;j++) {
 				gameBoard.getBoardButton(i, j).addMouseListener(this);
 			}	
 		}
-		for(int i=0; i<7; i++) {
+		
+		for(i=0; i<7; i++)
 			h1.getHandButton(i).addMouseListener(this);
-		}
-		for(int i=0; i<3; i++) {
+
+		for(i=0; i<3; i++)
 			Op.getOpButton(i).addMouseListener(this);
-		}
+
+		for(i=0; i<2; i++)
+			player[i]=new Player();
 		
 		TextPanel.setPreferredSize(new Dimension(300,670));
-		TextPanel.add(player1.getScroll());
-		TextPanel.add(player2.getScroll());
-		TextPanel.add(TUI.getScroll());
+		TextPanel.add(player[0].getText());
+		TextPanel.add(player[1].getText());
+		TextPanel.add(TUI.getTextCheck());
+		TextPanel.add(TUI.getTextF());
 		
 		MainPane.add(gameBoard.getBoard()); //ADD BOARD
 		MainPane.add(TextPanel); //ADD TEXTAREA
@@ -78,7 +83,6 @@ public class Main extends JFrame implements MouseListener{
 		setSize(1050,800);
 		
 		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-		//getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -108,7 +112,7 @@ public class Main extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
-		for(int i=0;i<h1.getHandButtonLength();i++) {
+		for(i=0;i<h1.getHandButtonLength();i++) {
 			if(ex.equals(h1.getHandButton(i))) {
 				if(h1.getHandButton(i).getBackground().equals(Color.RED) && flagSelect==true){
 					keep="";
@@ -128,8 +132,9 @@ public class Main extends JFrame implements MouseListener{
 			}
 				
 		}
-		for(int i=0;i<ROW;i++) {
-			for(int j=0;j<COL;j++) {
+		
+		for(i=0;i<ROW;i++) {
+			for(j=0;j<COL;j++) {
 				if(ex.equals(gameBoard.getBoardButton(i, j))) {
 					if(!gameBoard.getBoardButton(i, j).getText().equals("")) {
 						gameBoard.getBoardButton(i, j).setText("");
@@ -146,7 +151,6 @@ public class Main extends JFrame implements MouseListener{
 						gameBoard.getBoardButton(i, j).setBackground(Color.WHITE);
 						gameBoard.getBoardButton(i, j).setIcon(null);
 						gameBoard.getBoardButton(i, j).setFont(new Font("Cordia New",Font.PLAIN,15));
-						//ShowPlace(i, j);
 						System.out.println(keep);
 						showAllPlace();
 						flagSelect=false;
@@ -166,20 +170,37 @@ public class Main extends JFrame implements MouseListener{
 				}
 			}	
 		}
-		
-		for(int i=0;i<3;i++) {
-			if(ex.equals(Op.getOpButton(0))) {
-				Op.getOpButton(0).setBackground(Color.BLACK);
-				player1.setScore(hash.getScore());
-				player1.setTextScore(player1.getScore());
-			}
+				
+		for(i=0;i<Op.getOpButtonLength();i++) {
 			
-			if(ex.equals(Op.getOpButton(2))) {
-				if(TUI.getTextF().getText().equals("TURN PLAYER 1")){
-					TUI.getTextF().setText("TURN PLAYER 2");				
-				}else {
-					TUI.getTextF().setText("TURN PLAYER 1");	
+			if(ex.equals(Op.getOpButton(i))) {
+				if(Op.getOpButton(i).getText().equals("Submit")) {
+					Op.getOpButton(i).setBackground(Color.RED);
+					player[flagPlayer].setScore(hash.getScore());
+					player[flagPlayer].setTextScore();
+					if(flagPlayer==0){
+						TUI.getTextF().setText("TURN PLAYER 2");
+						flagPlayer=1;
+					}else if(flagPlayer==1){
+						TUI.getTextF().setText("TURN PLAYER 1");
+						flagPlayer=0;
+					}
 				}
+				
+				if(Op.getOpButton(i).getText().equals("Skip")) {
+					if(flagPlayer==0){
+						TUI.getTextF().setText("TURN PLAYER 2");
+						flagPlayer=1;
+					}else if(flagPlayer==1){
+						TUI.getTextF().setText("TURN PLAYER 1");
+						flagPlayer=0;
+					}
+				}
+
+				if(Op.getOpButton(i).getText().equals("Check")) {
+									
+				}
+				
 			}
 		}
 	}

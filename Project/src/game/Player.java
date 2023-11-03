@@ -8,13 +8,11 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 public class Player {
-	private int Score;
+	private int Score=0;
 	
 	private JTextArea textF=new JTextArea();
-	private JScrollPane scroll= new JScrollPane();
 	
 	public Player() {
-		Score=0;
 		textF.setPreferredSize(new Dimension(280,200));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
@@ -25,9 +23,6 @@ public class Player {
 			test+="test"+"\n";
 		}*/
 		textF.setText(String.valueOf(Score));
-		scroll = new JScrollPane(textF);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 
 	public int getScore() {
@@ -35,16 +30,18 @@ public class Player {
 	}
 
 	public void setScore(int score) {
-		Score = score;
+		System.out.println("TEST");
+		Score += score;
 	}
 	
-	public JScrollPane getScroll() {
-		return scroll;
+	public JTextArea getText() {
+		return textF;
 	}
 
-	public void setTextScore(int score)
+	public void setTextScore()
 	{
-		textF.setText(String.valueOf(score));
+		System.out.println(Score);
+		textF.setText(String.valueOf(Score));
 	}
 	
 }

@@ -9,13 +9,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-public class TextDisplay {
+public class TextOption {
 	private JTextArea textF=new JTextArea();
-	private JScrollPane scroll= new JScrollPane();
+	private JTextArea textCheck= new JTextArea();
 	
-	public TextDisplay() {
+	public TextOption() {
 		//textF.setPreferredSize(new Dimension(280,270));
-		textF.setPreferredSize(new Dimension(280,250));
+		textF.setPreferredSize(new Dimension(280,125));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
@@ -25,18 +25,19 @@ public class TextDisplay {
 			test+=i+"\n";
 		}
 		textF.setText(test);
-		scroll = new JScrollPane(textF);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		textCheck.setPreferredSize(new Dimension(280,125));
+		textCheck.setFont(new Font("Arial",Font.PLAIN, 30));
+		textCheck.setLineWrap(true);
+		textCheck.setEditable(false);
+		textCheck.setWrapStyleWord(true);		
 	}
-
+	
 	public JTextArea getTextF() {
 		return textF;
 	}
 	
-	public JScrollPane getScroll() {
-		return scroll;
+	public JTextArea getTextCheck() {
+		return textCheck;
 	}
-	
-	
 }
