@@ -10,11 +10,11 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Scanner;
 
-public class TestDict {
+public class Dict {
 	private static int count = 1;
  	private Dictionary<String, Integer> dict = new Hashtable<String, Integer>();
 	
-	public TestDict() throws IOException {
+	public Dict() throws IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		String fileURL = classLoader.getResource("dictionary.txt").getFile();
 		//File tx = new File(class.TestDict.getResource("/dictionary.txt"));

@@ -35,8 +35,10 @@ public class HashLetter {
 		System.out.println("\nIn calScore met "+temp+" "+score);
 		score=0;
 	}
-	public static void main(String[] args) {
-		
+	
+	public int getScore()
+	{
+		return score;
 	}
 	
 }

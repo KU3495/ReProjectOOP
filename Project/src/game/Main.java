@@ -36,13 +36,13 @@ public class Main extends JFrame implements MouseListener{
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
-	private TestDict testdict = null;
+	private Dict testdict = null;
 	private HashLetter hash = null;
 	
 	public Main(String title){
 		super(title);
 		try {
-			testdict = new TestDict();
+			testdict = new Dict();
 			hash = new HashLetter();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -170,6 +170,8 @@ public class Main extends JFrame implements MouseListener{
 		for(int i=0;i<3;i++) {
 			if(ex.equals(Op.getOpButton(0))) {
 				Op.getOpButton(0).setBackground(Color.BLACK);
+				player1.setScore(hash.getScore());
+				player1.setTextScore(player1.getScore());
 			}
 			
 			if(ex.equals(Op.getOpButton(2))) {

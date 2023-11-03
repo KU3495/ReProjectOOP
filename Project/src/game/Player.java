@@ -21,10 +21,10 @@ public class Player {
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
 		String test=""; int i;
-		for(i=0; i<5; i++) {
+		/*for(i=0; i<5; i++) {
 			test+="test"+"\n";
-		}
-		textF.setText(test);
+		}*/
+		textF.setText(String.valueOf(Score));
 		scroll = new JScrollPane(textF);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -40,6 +40,11 @@ public class Player {
 	
 	public JScrollPane getScroll() {
 		return scroll;
+	}
+
+	public void setTextScore(int score)
+	{
+		textF.setText(String.valueOf(score));
 	}
 	
 }
