@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,9 +36,17 @@ public class Main extends JFrame implements MouseListener{
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
+	private TestDict testdict = null;
+	private HashLetter hash = null;
 	
 	public Main(String title){
 		super(title);
+		try {
+			testdict = new TestDict();
+			hash = new HashLetter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Container MainPane= getContentPane();
 		gameBoard = new Board();
 		h1 = new Hand();
@@ -66,7 +75,7 @@ public class Main extends JFrame implements MouseListener{
 		MainPane.add(TextPanel); //ADD TEXTAREA
 		MainPane.add(h1.getPYHand()); //ADD HAND
 		MainPane.add(Op.getOption()); //ADD OPTION
-		setSize(1000,800);
+		setSize(1050,800);
 		
 		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
 		//getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -146,10 +155,8 @@ public class Main extends JFrame implements MouseListener{
 						wordList+=keep;
 						keep="";
 						try {
-							TestDict testdict = new TestDict(wordList);
-							HashLetter hash = new HashLetter();
-							//hash.calScore(wordList);
-							
+							if(testdict.checkWord(wordList))
+								hash.calScore(wordList);
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}

@@ -21,24 +21,19 @@ public class HashLetter {
 			int sc = Integer.parseInt(sp[2]);
 			tileScore.put(ch, sc);
 		}
-		/*Enumeration<String> k = tileScore.keys();
-        while (k.hasMoreElements()) {
-            String key = k.nextElement();
-            if(key.equals()) {
-            	System.out.println("Found it "+tileScore.get(key));
-            }
-            
-        }*/
 	}
 	public void calScore(String word)
 	{
 		String temp="";
 		System.out.println("Hello");
 		for(int i=0;i<word.length();i++){
-			temp+=word.substring(0, 2);
+			temp+=word.substring(i, i+1);
+			score+=tileScore.get(word.substring(i, i+1));
+			temp+=" ";
 			
 		}
-		System.out.println("\nIn calScore met"+temp);
+		System.out.println("\nIn calScore met "+temp+" "+score);
+		score=0;
 	}
 	public static void main(String[] args) {
 		

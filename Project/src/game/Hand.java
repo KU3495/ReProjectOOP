@@ -16,10 +16,17 @@ public class Hand {
 	private int i=0,j=0;
 	private JPanel HandPanel=new JPanel();
 	public void RandomHand() {
-		Random random = new Random();
+		//Random random = new Random();
+		handButton[0] = new JButton("A");
+		handButton[1] = new JButton("A");
+		handButton[2] = new JButton("G");
+		handButton[3] = new JButton("O");
+		handButton[4] = new JButton("D");
+		handButton[5] = new JButton("B");
+		handButton[6] = new JButton("Y");
 		for(i=0; i<7; i++) {
-			char randomLetter = (char) (random.nextInt(26) + 'A');
-			handButton[i]= new JButton(String.valueOf(randomLetter));
+			//char randomLetter = (char) (random.nextInt(26) + 'A');
+			//handButton[i]= new JButton(String.valueOf(randomLetter));
 			handButton[i].setBackground(Color.CYAN);
 			HandPanel.add(handButton[i]);
 		}
