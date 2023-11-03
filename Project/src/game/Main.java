@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -30,6 +31,7 @@ public class Main extends JFrame implements MouseListener{
 	private Player[] player;
 	private Player player1=new Player();
 	private Player player2=new Player();
+	private JPanel TextPanel=new JPanel();
 	private int memhand=0;
 	private String keep = "", wordList="";
 	private boolean flagSelect=false;
@@ -55,10 +57,13 @@ public class Main extends JFrame implements MouseListener{
 			Op.getOpButton(i).addMouseListener(this);
 		}
 		
+		TextPanel.setPreferredSize(new Dimension(300,670));
+		TextPanel.add(player1.getScroll());
+		TextPanel.add(player2.getScroll());
+		TextPanel.add(TUI.getScroll());
+		
 		MainPane.add(gameBoard.getBoard()); //ADD BOARD
-		//MainPane.add(player1.getScroll()); //ADD PLAYER1
-		//MainPane.add(player2.getScroll()); //ADD PLAYER2
-		MainPane.add(TUI.getScroll()); //ADD TEXTAREA
+		MainPane.add(TextPanel); //ADD TEXTAREA
 		MainPane.add(h1.getPYHand()); //ADD HAND
 		MainPane.add(Op.getOption()); //ADD OPTION
 		setSize(1000,800);
@@ -158,6 +163,14 @@ public class Main extends JFrame implements MouseListener{
 		for(int i=0;i<3;i++) {
 			if(ex.equals(Op.getOpButton(0))) {
 				Op.getOpButton(0).setBackground(Color.BLACK);
+			}
+			
+			if(ex.equals(Op.getOpButton(2))) {
+				if(TUI.getTextF().getText().equals("TURN PLAYER 1")){
+					TUI.getTextF().setText("TURN PLAYER 2");				
+				}else {
+					TUI.getTextF().setText("TURN PLAYER 1");	
+				}
 			}
 		}
 	}

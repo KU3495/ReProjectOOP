@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -14,7 +15,7 @@ public class TextDisplay {
 	
 	public TextDisplay() {
 		//textF.setPreferredSize(new Dimension(280,270));
-		textF.setPreferredSize(new Dimension(280,670));
+		textF.setPreferredSize(new Dimension(280,250));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
@@ -35,10 +36,6 @@ public class TextDisplay {
 	
 	public JScrollPane getScroll() {
 		return scroll;
-	}
-
-	public void setTextF(JTextArea textF) {
-		this.textF = textF;
 	}
 	
 	
