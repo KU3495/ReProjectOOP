@@ -22,6 +22,7 @@ public class HashLetter {
 			tileScore.put(ch, sc);
 		}
 	}
+	
 	public void calScore(String word)
 	{
 		score=0;
@@ -40,5 +41,8 @@ public class HashLetter {
 		return score;
 	}
 	
+	public void setScore(int score) {	
+		this.score=score;
+	}
 	
 }

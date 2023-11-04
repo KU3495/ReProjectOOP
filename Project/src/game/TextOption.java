@@ -27,6 +27,7 @@ public class TextOption {
 		textCheck.setLineWrap(true);
 		textCheck.setEditable(false);
 		textCheck.setWrapStyleWord(true);
+		textCheck.setText("Check: ");
 	}
 	
 	public JTextArea getTextF() {

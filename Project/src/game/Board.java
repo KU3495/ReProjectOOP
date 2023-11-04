@@ -80,7 +80,6 @@ public class Board{
 						boardButton[i][j].setIcon(icon3w); 
 				break;
 				case 5: 
-						boardButton[i][j].setForeground(Color.YELLOW); 
 						boardButton[i][j].setBackground(Color.ORANGE);
 						boardButton[i][j].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 				break;
