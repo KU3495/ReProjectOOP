@@ -25,19 +25,21 @@ import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements MouseListener{
 	private static final int ROW=15, COL=15;
+	private JPanel TextPanel=new JPanel();
 	private Board gameBoard;
 	private Hand h1;
 	private Options Op;
 	private TextOption TUI;
 	private Player[] player;
-	private JPanel TextPanel=new JPanel();
-	private int memhand=0;
-	private String keep = "", wordList="";
-	private boolean flagSelect=false; 
-	private int flagPlayer=0;
 	private Dict testdict = null;
 	private HashLetter hash = null;
+	private String keep = "", wordList="";
+	private boolean flagSelect=false; 
+	private int memhand=0;
+	private int flagPlayer=0;
 	private int i,j;
+	private JButton BacktoMenu=new JButton("Back To Menu");
+
 	
 	public Main(String title){
 		super(title);
@@ -73,6 +75,8 @@ public class Main extends JFrame implements MouseListener{
 			player[i].getText().setText("Player " + numplayer + " Score: 0");
 		}
 		
+		BacktoMenu.addMouseListener(this);
+		
 		TextPanel.setPreferredSize(new Dimension(300,670));
 		TextPanel.add(player[0].getText());
 		TextPanel.add(player[1].getText());
@@ -83,6 +87,7 @@ public class Main extends JFrame implements MouseListener{
 		MainPane.add(TextPanel); //ADD TEXTAREA
 		MainPane.add(h1.getPYHand()); //ADD HAND
 		MainPane.add(Op.getOption()); //ADD OPTION
+		MainPane.add(BacktoMenu);
 		setSize(1050,800);
 		
 		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
@@ -220,6 +225,11 @@ public class Main extends JFrame implements MouseListener{
 				}
 				
 			}
+		}
+		
+		if(ex.equals(BacktoMenu)) {
+			GameMenu back=new GameMenu("Scrabble");
+			dispose();
 		}
 	}
 

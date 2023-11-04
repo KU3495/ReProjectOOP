@@ -16,22 +16,24 @@ import javax.swing.JPanel;
 public class GameMenu extends JFrame implements MouseListener{
 	private JPanel mainPanel=new JPanel();
 	private JButton[] mainButton= new JButton[3];
+	private JLabel Title=new JLabel();
 	
 	public GameMenu(String title) {
 		super(title);
 		Container MainPane= getContentPane();
 
 		mainPanel.setPreferredSize(new Dimension(200,200));
-		mainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		mainPanel.setLayout(new GridLayout(2,1,0,100));
+		//mainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		mainPanel.setLayout(new GridLayout(3,1,0,5));
 		mainPanel.setMaximumSize(new Dimension(200, 200));
 		mainButton[0]= new JButton("Start");
 		mainButton[0].addMouseListener(this);
 		mainButton[1]= new JButton("Exit");
+		Title.setText("<html><h1><strong><i>Scrabble</i></strong></h1></html>");
 
+		mainPanel.add(Title);
 		mainPanel.add(mainButton[0]);
 		mainPanel.add(mainButton[1]);
-		MainPane.add(new JLabel("<html><h1><strong><i>Scrabble</i></strong></h1><hr></html>"));
 		MainPane.add(mainPanel);
 
 		setSize(1000,800);
