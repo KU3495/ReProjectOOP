@@ -67,8 +67,11 @@ public class Main extends JFrame implements MouseListener{
 		for(i=0; i<3; i++)
 			Op.getOpButton(i).addMouseListener(this);
 
-		for(i=0; i<2; i++)
+		for(i=0; i<2; i++) {
+			int numplayer=i+1;
 			player[i]=new Player();
+			player[i].getText().setText("Player " + numplayer + " Score: 0");
+		}
 		
 		TextPanel.setPreferredSize(new Dimension(300,670));
 		TextPanel.add(player[0].getText());
@@ -108,6 +111,16 @@ public class Main extends JFrame implements MouseListener{
 			}
 		}
 	}
+	
+	void PickUp(String word) {
+		int i;
+		for(i=0; i<7; i++) {
+			if(h1.getHandButton(i).getText().equals("")) {
+				h1.getHandButton(i).setText(word);
+				break;
+			}
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -137,6 +150,7 @@ public class Main extends JFrame implements MouseListener{
 			for(j=0;j<COL;j++) {
 				if(ex.equals(gameBoard.getBoardButton(i, j))) {
 					if(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+						PickUp(gameBoard.getBoardButton(i, j).getText());
 						gameBoard.getBoardButton(i, j).setText("");
 						System.out.println("in null");
 						gameBoard.SetBoard(i, j);
@@ -172,12 +186,12 @@ public class Main extends JFrame implements MouseListener{
 		}
 				
 		for(i=0;i<Op.getOpButtonLength();i++) {
-			
+			int numplayer=flagPlayer+1;
 			if(ex.equals(Op.getOpButton(i))) {
 				if(Op.getOpButton(i).getText().equals("Submit")) {
 					Op.getOpButton(i).setBackground(Color.RED);
 					player[flagPlayer].setScore(hash.getScore());
-					player[flagPlayer].setTextScore();
+					player[flagPlayer].setTextScore("Player " + numplayer + " Score: ");
 					if(flagPlayer==0){
 						TUI.getTextF().setText("TURN PLAYER 2");
 						flagPlayer=1;
@@ -185,6 +199,10 @@ public class Main extends JFrame implements MouseListener{
 						TUI.getTextF().setText("TURN PLAYER 1");
 						flagPlayer=0;
 					}
+				}
+				
+				if(Op.getOpButton(i).getText().equals("Swap")) {
+					
 				}
 				
 				if(Op.getOpButton(i).getText().equals("Skip")) {

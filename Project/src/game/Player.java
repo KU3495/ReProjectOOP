@@ -13,15 +13,11 @@ public class Player {
 	private JTextArea textF=new JTextArea();
 	
 	public Player() {
-		textF.setPreferredSize(new Dimension(280,200));
+		textF.setPreferredSize(new Dimension(280,40));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
-		String test=""; int i;
-		/*for(i=0; i<5; i++) {
-			test+="test"+"\n";
-		}*/
 		textF.setText(String.valueOf(Score));
 	}
 
@@ -38,10 +34,10 @@ public class Player {
 		return textF;
 	}
 
-	public void setTextScore()
+	public void setTextScore(String text)
 	{
 		System.out.println(Score);
-		textF.setText(String.valueOf(Score));
+		textF.setText(text+String.valueOf(Score));
 	}
 	
 }
