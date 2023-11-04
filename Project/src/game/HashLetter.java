@@ -26,7 +26,6 @@ public class HashLetter {
 	{
 		score=0;
 		String temp="";
-		System.out.println("Hello");
 		for(int i=0;i<word.length();i++){
 			temp+=word.substring(i, i+1);
 			score+=tileScore.get(word.substring(i, i+1));

@@ -35,7 +35,7 @@ public class Main extends JFrame implements MouseListener{
 	private Dict dictionary = null;
 	private HashLetter hash = null;
 	private String keep ="", wordList="";
-	private boolean flagSelect=false; 
+	private boolean flagSelect=false ,valid = true; 
 	private int memhand=0;
 	private int flagPlayer=0;
 	private int i,j;
@@ -159,15 +159,22 @@ public class Main extends JFrame implements MouseListener{
 					word2+=gameBoard.getBoardButton(i, j).getText();
 					i++;
 				}
-				
-				ArrWord.add(word2);
+				if(dictionary.checkWord(word2))
+					ArrWord.add(word2);
+				else
+					valid = false;
 				i=memrow;
 			}
 			j++;
 			word2="";
 		}
-		ArrWord.add(word1);
-		System.out.println(ArrWord);
+		if(dictionary.checkWord(word1)) {
+			ArrWord.add(word1);
+			System.out.println("In here");
+			System.out.println(ArrWord);
+		}
+		else
+			valid = false;
 		
 	}
 
@@ -270,22 +277,13 @@ public class Main extends JFrame implements MouseListener{
 				}
 
 				if(Op.getOpButton(i).getText().equals("Check")) {
-					boolean valid = false;
+					checkWord(startRow, startCol);
+					System.out.println("KUY"+ArrWord);
 					for(String str : ArrWord) {
-						try {
-							valid=dictionary.checkWord("GO");
-							/*if(dictionary.checkWord(wordList))
-								hash.calScore(wordList);*/
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-						if(valid) { 
-							hash.calScore(str);
-							break;
-						}
+						hash.calScore(str);
+						System.out.println("Score of "+str+": "+hash.getScore());
 					}
 					TUI.getTextCheck().setText("Check: " + valid);
-					checkWord(startRow, startCol);
 					ArrWord.removeAll(ArrWord);
 				}
 				
