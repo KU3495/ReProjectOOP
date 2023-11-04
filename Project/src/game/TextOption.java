@@ -26,7 +26,7 @@ public class TextOption {
 		textCheck.setFont(new Font("Arial",Font.PLAIN, 30));
 		textCheck.setLineWrap(true);
 		textCheck.setEditable(false);
-		textCheck.setWrapStyleWord(true);		
+		textCheck.setWrapStyleWord(true);
 	}
 	
 	public JTextArea getTextF() {

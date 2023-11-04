@@ -13,6 +13,7 @@ import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -31,20 +32,21 @@ public class Main extends JFrame implements MouseListener{
 	private Options Op;
 	private TextOption TUI;
 	private Player[] player;
-	private Dict testdict = null;
+	private Dict dictionary = null;
 	private HashLetter hash = null;
-	private String keep = "", wordList="";
+	private String keep ="", wordList="";
 	private boolean flagSelect=false; 
 	private int memhand=0;
 	private int flagPlayer=0;
 	private int i,j;
+	private int startRow=0, startCol=0;
+	private ArrayList<String> ArrWord=new ArrayList<String>();
 	private JButton BacktoMenu=new JButton("Back To Menu");
-
 	
 	public Main(String title){
 		super(title);
 		try {
-			testdict = new Dict();
+			dictionary = new Dict();
 			hash = new HashLetter();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,7 +68,7 @@ public class Main extends JFrame implements MouseListener{
 		for(i=0; i<7; i++)
 			h1.getHandButton(i).addMouseListener(this);
 
-		for(i=0; i<3; i++)
+		for(i=0; i<4; i++)
 			Op.getOpButton(i).addMouseListener(this);
 
 		for(i=0; i<2; i++) {
@@ -97,7 +99,7 @@ public class Main extends JFrame implements MouseListener{
 		setVisible(true);
 	}
 	
-	void showAllPlace() {
+	public void showAllPlace() {
 		int rows,cals;
 		for(rows=0; rows<ROW; rows++) {
 			for(cals=0; cals<COL; cals++) {
@@ -117,7 +119,7 @@ public class Main extends JFrame implements MouseListener{
 		}
 	}
 	
-	void PickUp(String word) {
+	public void PickUp(String word) {
 		int i;
 		for(i=0; i<7; i++) {
 			if(h1.getHandButton(i).getText().equals("")) {
@@ -125,6 +127,48 @@ public class Main extends JFrame implements MouseListener{
 				break;
 			}
 		}
+	}
+	
+	public void checkWord(int row, int col) {
+		int i,j;
+		int memrow=0;
+		String word1="",word2="";
+		
+		//FindStartCol
+		i=row; j=col;
+		while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+			startCol=j;
+			j--;
+		}
+		
+		//GetWordCol
+		i=memrow=row; j=startCol;
+		while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+			word1+=gameBoard.getBoardButton(i, j).getText();
+			
+			//GetWordRow
+			if(!gameBoard.getBoardButton(i-1, j).getText().equals("")
+			||!gameBoard.getBoardButton(i+1, j).getText().equals("")) {
+				while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+					startRow=i;
+					i--;
+				}
+				
+				i=startRow;
+				while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+					word2+=gameBoard.getBoardButton(i, j).getText();
+					i++;
+				}
+				
+				ArrWord.add(word2);
+				i=memrow;
+			}
+			j++;
+			word2="";
+		}
+		ArrWord.add(word1);
+		System.out.println(ArrWord);
+		
 	}
 
 	@Override
@@ -178,11 +222,14 @@ public class Main extends JFrame implements MouseListener{
 						wordList+=keep;
 						keep="";
 						try {
-							if(testdict.checkWord(wordList))
+							if(dictionary.checkWord(wordList))
 								hash.calScore(wordList);
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
+						
+						startRow=i;
+						startCol=j;
 						
 					}
 					
@@ -204,6 +251,8 @@ public class Main extends JFrame implements MouseListener{
 						TUI.getTextF().setText("TURN PLAYER 1");
 						flagPlayer=0;
 					}
+					checkWord(startRow, startCol);
+					ArrWord.removeAll(ArrWord);
 				}
 				
 				if(Op.getOpButton(i).getText().equals("Swap")) {
@@ -221,7 +270,23 @@ public class Main extends JFrame implements MouseListener{
 				}
 
 				if(Op.getOpButton(i).getText().equals("Check")) {
-									
+					boolean valid = false;
+					for(String str : ArrWord) {
+						try {
+							valid=dictionary.checkWord("GO");
+							/*if(dictionary.checkWord(wordList))
+								hash.calScore(wordList);*/
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						if(valid) { 
+							hash.calScore(str);
+							break;
+						}
+					}
+					TUI.getTextCheck().setText("Check: " + valid);
+					checkWord(startRow, startCol);
+					ArrWord.removeAll(ArrWord);
 				}
 				
 			}
