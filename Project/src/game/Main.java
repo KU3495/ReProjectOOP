@@ -406,6 +406,8 @@ public class Main extends JFrame implements MouseListener{
 		//Submit
 		if(ex.equals(Op.getOpButton(0)) && !flagSwap && !flagSkip) {
 			if(ConfirmWord(startRow, startCol, dir, false)) {
+				ArrWord.removeAll(ArrWord);
+				Special.removeAll(Special);
 				ConfirmWord(startRow, startCol, dir, true);				
 			}
 			
@@ -452,6 +454,8 @@ public class Main extends JFrame implements MouseListener{
 			startRow=-1;
 			startCol=-1;
 			Score=0;
+			keep="";
+			countOnBoard=0;
 			SetHand();
 		}
 		
@@ -472,7 +476,6 @@ public class Main extends JFrame implements MouseListener{
 				Op.getOpButton(1).setBackground(Color.YELLOW);
 				flagSwap=true;
 			}
-			keep="";
 		}
 		
 		//Skip
