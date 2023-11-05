@@ -35,7 +35,6 @@ public class Hand {
 		HandPanel.setLayout(new GridLayout(1,7));
 		HandPanel.setMaximumSize(new Dimension(600, 50));
 		HandPanel.setBackground(Color.BLACK);
-		//HandPanel.setBorder(BorderFactory.createTitledBorder("Test HAND"));
 		try {
 			bag=new TileBag();
 		} catch (IOException e) {
@@ -43,18 +42,11 @@ public class Hand {
 			e.printStackTrace();
 		}
 		for(i=0; i<7; i++) {
-			//char randomLetter = (char) (random.nextInt(26) + 'A');
-			//handButton[i]= new JButton(String.valueOf(randomLetter));
-			
-			/*String random=String.valueOf(bag.getLetter());
-			bag.RemoveFromBag(random);
-			handButton[i] = new JButton(random);*/
 			
 			handButton[i] = new JButton();
 			handButton[i].setBackground(Color.CYAN);
 			HandPanel.add(handButton[i]);
 		}
-		//RandomHand();
 	}
 	public JPanel getPYHand() {
 		return HandPanel;
@@ -79,15 +71,8 @@ public class Hand {
 				count++;
 			}
 		}
-		//bag.DisplayBag();
 
 		return count;
 	}
-	
-	/*public void setHand(String[] hand) {
-		int i;
-		for(i=0; i<7; i++) {
-			handButton[i].setText(hand[i]);
-		}
-	}*/
+
 }

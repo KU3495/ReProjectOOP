@@ -28,7 +28,6 @@ public class BagMenu extends JFrame{
 		for(int i=0; i<26; i++) {
 			char L=(char) (i+'A');
 			String letter=String.valueOf(L);
-			//Integer num=tilebag.get(letter);
 			Text+= L+": "+tilebag.get(letter)+"\t";
 			if(i%2==1) {
 				Text+="\n";

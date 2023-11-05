@@ -51,7 +51,6 @@ public class Board{
 		MainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		MainPanel.setLayout(new GridLayout(15,15));
 		MainPanel.setMaximumSize(new Dimension(675, 675));
-	    //MainPanel.setBorder(BorderFactory.createTitledBorder("Test Board"));
 	    
 	    for(i=0; i<15; i++) {
 			for(j=0; j<15; j++) {

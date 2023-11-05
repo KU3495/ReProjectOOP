@@ -17,7 +17,6 @@ public class Dict {
 	public Dict() throws IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		String fileURL = classLoader.getResource("dictionary.txt").getFile();
-		//File tx = new File(class.TestDict.getResource("/dictionary.txt"));
 		Reader r = new FileReader(fileURL);
 		BufferedReader br = new BufferedReader(r);
 		String s = "";

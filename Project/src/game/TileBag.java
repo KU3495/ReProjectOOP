@@ -66,18 +66,6 @@ public class TileBag {
 	public Hashtable<String, Integer> gettilebag(){
 		return tilebag;
 	}
-	
-	/*public boolean checkBag() {
-		int i;
-		for(i=0; i<26; i++) {
-			char L=(char) (i+'A');
-			String letter=String.valueOf(L);
-			if(tilebag.get(letter)>0) {
-				return true;
-			}
-		}
-		return false;
-	}*/
 
 	public boolean checkBag() {
 		int i;
