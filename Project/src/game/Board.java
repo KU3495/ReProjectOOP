@@ -100,10 +100,6 @@ public class Board{
 	public ImageIcon getIcon(int i) {
 		return Icon.get(i);
 	}
-	
-	public void setBoardButton(int i,int j,String key) {
-		
-	}
 
 
 }
