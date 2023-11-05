@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 public class HashLetter {
@@ -23,13 +24,30 @@ public class HashLetter {
 		}
 	}
 	
-	public void calScore(String word)
+	public void calScore(String word, ArrayList<Integer> Sp)
 	{
 		score=0;
+		int Keep=0,Multi=1;
 		String temp="";
 		for(int i=0;i<word.length();i++){
 			temp+=word.substring(i, i+1);
-			score+=tileScore.get(word.substring(i, i+1));
+			switch(Sp.get(i)) {
+			case 1:
+				Keep=tileScore.get(word.substring(i, i+1))*2;
+				break;
+			case 2:
+				Keep=tileScore.get(word.substring(i, i+1))*3;
+				break;
+			case 3:
+			case 4:
+				Multi=Sp.get(i);
+				break;
+			default:
+				Keep=tileScore.get(word.substring(i, i+1));
+				break;
+			}
+			System.out.println(i+" ////// "+ Sp.get(i)+" "+ Keep);
+			score+=Keep*Multi;
 			temp+=" ";
 			
 		}

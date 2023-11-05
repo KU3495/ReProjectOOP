@@ -25,7 +25,7 @@ public class Options {
 		OptionPanel.add(OpButton[1]);
 		OptionPanel.add(OpButton[2]);
 		OptionPanel.add(OpButton[3]);
-		OptionPanel.setBackground(Color.BLACK);
+		OptionPanel.setBackground(Color.GRAY);
 
 	}
 	

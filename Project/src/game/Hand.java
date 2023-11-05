@@ -27,33 +27,34 @@ public class Hand {
 		handButton[5] = new JButton("S");
 		handButton[6] = new JButton("S");*/
 		
-		try {
-			bag=new TileBag();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		for(i=0; i<7; i++) {
-			//char randomLetter = (char) (random.nextInt(26) + 'A');
-			//handButton[i]= new JButton(String.valueOf(randomLetter));
-			
-			String random=String.valueOf(bag.getLetter());
-			bag.RemoveFromBag(random);
-			handButton[i] = new JButton(random);
-			
-			handButton[i].setBackground(Color.CYAN);
-			HandPanel.add(handButton[i]);
-			//bag.DisplayBag();
-		}
 	}
 	public Hand() {
 		HandPanel.setPreferredSize(new Dimension(600,50));
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		HandPanel.setLayout(new GridLayout(1,7));
 		HandPanel.setMaximumSize(new Dimension(600, 50));
+		HandPanel.setBackground(Color.BLACK);
 		//HandPanel.setBorder(BorderFactory.createTitledBorder("Test HAND"));
-		RandomHand();
+		try {
+			bag=new TileBag();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(i=0; i<7; i++) {
+			//char randomLetter = (char) (random.nextInt(26) + 'A');
+			//handButton[i]= new JButton(String.valueOf(randomLetter));
+			
+			/*String random=String.valueOf(bag.getLetter());
+			bag.RemoveFromBag(random);
+			handButton[i] = new JButton(random);*/
+			
+			handButton[i] = new JButton();
+			handButton[i].setBackground(Color.CYAN);
+			HandPanel.add(handButton[i]);
+		}
+		//RandomHand();
 	}
 	public JPanel getPYHand() {
 		return HandPanel;
@@ -78,8 +79,15 @@ public class Hand {
 				count++;
 			}
 		}
-		System.out.println("//// "+count);
+		bag.DisplayBag();
+
 		return count;
 	}
 	
+	/*public void setHand(String[] hand) {
+		int i;
+		for(i=0; i<7; i++) {
+			handButton[i].setText(hand[i]);
+		}
+	}*/
 }

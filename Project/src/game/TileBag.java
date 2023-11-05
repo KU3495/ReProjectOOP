@@ -38,10 +38,15 @@ public class TileBag {
 		tilebag.put(letter, L);
 	}
 	
-	public char getLetter() {
-		Random ran=new Random();		
-		char randomLetter = (char) (ran.nextInt(26) + 'A');
-		return randomLetter;
+	public String getLetter() {
+		Random ran=new Random();
+		char randomchar = (char) (ran.nextInt(26) + 'A');
+		String randomLetter=String.valueOf(randomchar);
+		if(tilebag.get(randomLetter)>0) {
+			int L=tilebag.get(randomLetter)-1;
+			tilebag.put(String.valueOf(randomLetter), L);
+			return randomLetter;
+		}return "";
 	}
 	
 	public void DisplayBag() {
@@ -52,5 +57,9 @@ public class TileBag {
 			System.out.println(w + " ////// " + tilebag.get(w));
 		}
 		System.out.println("//////");
+	}
+	
+	public Hashtable<String, Integer> gettilebag(){
+		return tilebag;
 	}
 }

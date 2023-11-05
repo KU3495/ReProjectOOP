@@ -6,6 +6,10 @@ public class RunGame {
 		Main t = new Main("Scrabble");
 		//GameMenu opengame= new GameMenu("Scrabble");
 	}
+	
 }
+
+
+
 
 
