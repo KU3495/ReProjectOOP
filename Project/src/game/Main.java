@@ -26,11 +26,10 @@ public class Main extends JFrame implements MouseListener{
 	private Player[] player;
 	private Dict dictionary = null;
 	private HashLetter hash = null;
+	
 	private String keep ="";
 	private boolean valid = true, flagDir=false, flagSwap=false, flagSkip=false;
-	private int memhand=0, dir=0;
-	private int numOfPlayer=0;
-	private int i,j,Score=0;
+	private int i, j, Score=0, memhand=0, dir=0, numOfPlayer=0, countOnBoard=0;
 	private int dirCol1=0,dirCol2=0,dirRow1=0,dirRow2=0;
 	private int startRow=0, startCol=0;
 	private ArrayList<Integer> Special=new ArrayList<Integer>();
@@ -154,7 +153,7 @@ public class Main extends JFrame implements MouseListener{
 		}
 	}
 	
-	public void checkWord(int row, int col, int dir, boolean flagSubmmit) {
+	public boolean checkWord(int row, int col, int dir, boolean flagSubmmit) {
 		int i,j;
 		int memrow=0,memcol=0;
 		String word1="",word2="";
@@ -204,7 +203,8 @@ public class Main extends JFrame implements MouseListener{
 					}
 					
 					if(flagSubmmit) {
-						status[i][j]=1;						
+						gameBoard.getBoardButton(i, j).setBackground(Color.GREEN);
+						status[i][j]=1;		
 					}
 					j++;
 					word2="";
@@ -263,7 +263,8 @@ public class Main extends JFrame implements MouseListener{
 					}
 					
 					if(flagSubmmit) {
-						status[i][j]=1;						
+						gameBoard.getBoardButton(i, j).setBackground(Color.GREEN);
+						status[i][j]=1;
 					}
 					i++;
 					word2="";
@@ -273,15 +274,12 @@ public class Main extends JFrame implements MouseListener{
 					ArrWord.add(word1);
 					System.out.println("In here");
 					System.out.println(ArrWord);
-				}
-				else
-					valid = false;
+				}else valid = false;
 			}
 		}catch(Exception ex) {
 			
 		}
-		
-		System.out.println(Special);
+		return valid;
 	}
 	
 	public boolean Swap() {
@@ -354,7 +352,7 @@ public class Main extends JFrame implements MouseListener{
 		//Board
 		for(i=0;i<ROW;i++) {
 			for(j=0;j<COL;j++) {
-				if(ex.equals(gameBoard.getBoardButton(i, j))) {
+				if(ex.equals(gameBoard.getBoardButton(i, j)) && status[i][j]==0) {
 					if(!gameBoard.getBoardButton(i, j).getText().equals("")) {
 						PickUp(gameBoard.getBoardButton(i, j).getText());
 						gameBoard.getBoardButton(i, j).setText("");
@@ -362,6 +360,7 @@ public class Main extends JFrame implements MouseListener{
 						gameBoard.SetBoard(i, j);
 						showAllPlace();
 						gameBoard.getBoardButton(7, 7).setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+						countOnBoard--;
 					}	
 					else {
 						LineBorder border = (LineBorder) gameBoard.getBoardButton(i, j).getBorder();
@@ -392,6 +391,8 @@ public class Main extends JFrame implements MouseListener{
 								dir=1;								
 							}
 						}
+						countOnBoard++;
+						
 					}
 					
 				}
@@ -403,8 +404,9 @@ public class Main extends JFrame implements MouseListener{
 		
 		//Submit
 		if(ex.equals(Op.getOpButton(0)) && !flagSwap && !flagSkip) {
-					
-			checkWord(startRow, startCol, dir, true);
+			if(checkWord(startRow, startCol, dir, false)) {
+				checkWord(startRow, startCol, dir, true);				
+			}
 			for(String str : ArrWord){
 				hash.calScore(str,Special);
 				Score+=hash.getScore();
@@ -423,7 +425,6 @@ public class Main extends JFrame implements MouseListener{
 					PickUp(L);
 				}else k--;
 			}
-			
 			
 			if(Score!=0) {
 				for(int k=0; k<7; k++) {
@@ -453,7 +454,7 @@ public class Main extends JFrame implements MouseListener{
 		}
 		
 		//Swap
-		if(ex.equals(Op.getOpButton(1)) && !flagSkip) {
+		if(ex.equals(Op.getOpButton(1)) && !flagSkip && countOnBoard==0) {
 			if(Op.getOpButton(1).getBackground().equals(Color.YELLOW)) {
 				Op.getOpButton(1).setBackground(Color.WHITE);
 				if(Swap()) {
@@ -468,7 +469,7 @@ public class Main extends JFrame implements MouseListener{
 		}
 		
 		//Skip
-		if(ex.equals(Op.getOpButton(2)) && !flagSwap) {
+		if(ex.equals(Op.getOpButton(2)) && !flagSwap && countOnBoard==0) {
 			
 			for(int k=0; k<7; k++) {
 				player[numOfPlayer].setArrHand(hand.getHandButton(k).getText());				
