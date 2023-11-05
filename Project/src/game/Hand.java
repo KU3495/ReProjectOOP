@@ -79,7 +79,7 @@ public class Hand {
 				count++;
 			}
 		}
-		bag.DisplayBag();
+		//bag.DisplayBag();
 
 		return count;
 	}

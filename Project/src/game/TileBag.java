@@ -22,6 +22,7 @@ public class TileBag {
 			int sc = Integer.parseInt(sp[1]);
 			tilebag.put(ch, sc);
 		}
+		System.out.println(tilebag);
 	}
 	
 	public boolean RemoveFromBag(String letter){
@@ -41,12 +42,16 @@ public class TileBag {
 	public String getLetter() {
 		Random ran=new Random();
 		char randomchar = (char) (ran.nextInt(26) + 'A');
+		System.out.println("Random: "+randomchar);
 		String randomLetter=String.valueOf(randomchar);
+		
 		if(tilebag.get(randomLetter)>0) {
+			System.out.println("value: "+tilebag.get(randomLetter));
 			int L=tilebag.get(randomLetter)-1;
 			tilebag.put(String.valueOf(randomLetter), L);
+			System.out.println("Afvalue: "+tilebag.get(randomLetter)+ " get: "+ tilebag.get(randomLetter));
 			return randomLetter;
-		}return "";
+		}return "-";
 	}
 	
 	public void DisplayBag() {
