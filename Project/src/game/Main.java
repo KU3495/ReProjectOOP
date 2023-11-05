@@ -1,27 +1,19 @@
 package game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Label;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements MouseListener{
@@ -34,15 +26,17 @@ public class Main extends JFrame implements MouseListener{
 	private Player[] player;
 	private Dict dictionary = null;
 	private HashLetter hash = null;
-	private String keep ="", wordList="";
-	private boolean flagSelect=false ,valid = true, flagDir=false;
+	private String keep ="";
+	private boolean valid = true, flagDir=false;
 	private int memhand=0, dir=0;;
 	private int numOfPlayer=0;
-	private int i,j;
+	private int i,j,Score=0;
 	private int dirCol1=0,dirCol2=0,dirRow1=0,dirRow2=0;
 	private int startRow=0, startCol=0;
 	private ArrayList<String> ArrWord=new ArrayList<String>();
 	private JButton BacktoMenu=new JButton("Back To Menu");
+	
+	private int[][] status=new int[15][15];
 	
 	public Main(String title){
 		super(title);
@@ -80,7 +74,7 @@ public class Main extends JFrame implements MouseListener{
 		
 		BacktoMenu.addMouseListener(this);
 		
-		TextPanel.setPreferredSize(new Dimension(300,670));
+		TextPanel.setPreferredSize(new Dimension(350,670));
 		TextPanel.add(player[0].getText());
 		TextPanel.add(player[1].getText());
 		TextPanel.add(TUI.getTextCheck());
@@ -130,7 +124,7 @@ public class Main extends JFrame implements MouseListener{
 		}
 	}
 	
-	public void checkWord(int row, int col, int dir) {
+	public void checkWord(int row, int col, int dir, boolean flagSubmmit) {
 		int i,j;
 		int memrow=0,memcol=0;
 		String word1="",word2="";
@@ -149,9 +143,12 @@ public class Main extends JFrame implements MouseListener{
 					word1+=gameBoard.getBoardButton(i, j).getText();
 					
 					//GetWordRow
-					if(!gameBoard.getBoardButton(i-1, j).getText().equals("")
-							||!gameBoard.getBoardButton(i+1, j).getText().equals("")) {
+					if(status[i][j]==0 && 
+						(!gameBoard.getBoardButton(i-1, j).getText().equals("")||
+						!gameBoard.getBoardButton(i+1, j).getText().equals(""))) {
+						
 						while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+							System.out.println("Col");
 							startRow=i;
 							i--;
 						}
@@ -165,11 +162,17 @@ public class Main extends JFrame implements MouseListener{
 							ArrWord.add(word2);
 						else
 							valid = false;
+						
 						i=memrow;
+					}
+					
+					if(flagSubmmit) {
+						status[i][j]=1;						
 					}
 					j++;
 					word2="";
 				}
+				
 				if(dictionary.checkWord(word1)) {
 					ArrWord.add(word1);
 					System.out.println("In here");
@@ -179,22 +182,24 @@ public class Main extends JFrame implements MouseListener{
 					valid = false;
 				
 			}else if(dir==1) {
-				//FindStartCol
+				//FindStartRow
 				i=row; j=col;
 				while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
 					startRow=i;
 					i--;
 				}
 				
-				//GetWordCol
+				//GetWordRow
 				j=memcol=col; i=startRow;
 				while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
 					word1+=gameBoard.getBoardButton(i, j).getText();
 					
-					//GetWordRow
-					if(!gameBoard.getBoardButton(i, j-1).getText().equals("")
-							||!gameBoard.getBoardButton(i, j+1).getText().equals("")) {
+					//GetWordCol
+					if(status[i][j]==0 && 
+						(!gameBoard.getBoardButton(i, j-1).getText().equals("")
+						||!gameBoard.getBoardButton(i, j+1).getText().equals(""))) {
 						while(!gameBoard.getBoardButton(i, j).getText().equals("")) {
+							System.out.println("Row");
 							startCol=j;
 							j--;
 						}
@@ -204,15 +209,22 @@ public class Main extends JFrame implements MouseListener{
 							word2+=gameBoard.getBoardButton(i, j).getText();
 							j++;
 						}
+						
 						if(dictionary.checkWord(word2))
 							ArrWord.add(word2);
 						else
 							valid = false;
+						
 						j=memcol;
+					}
+					
+					if(flagSubmmit) {
+						status[i][j]=1;						
 					}
 					i++;
 					word2="";
 				}
+				
 				if(dictionary.checkWord(word1)) {
 					ArrWord.add(word1);
 					System.out.println("In here");
@@ -233,19 +245,18 @@ public class Main extends JFrame implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
 		
+		//Hand
 		for(i=0;i<hand.getHandButtonLength();i++) {
 			if(ex.equals(hand.getHandButton(i))) {
-				if(hand.getHandButton(i).getBackground().equals(Color.RED) && flagSelect==true){
+				if(hand.getHandButton(i).getBackground().equals(Color.RED)){
 					keep="";
 					System.out.println("In Here");
 					hand.getHandButton(i).setBackground(Color.CYAN);
-					flagSelect=false;
-				}
-				else if(flagSelect==false){
+				}else{
+					hand.getHandButton(memhand).setBackground(Color.CYAN);
 					hand.getHandButton(i).setBackground(Color.RED);
 					keep=String.valueOf(hand.getHandButton(i).getText());
 					System.out.println("Test "+keep);
-					flagSelect=true;
 					memhand=i;
 				}
 				
@@ -253,6 +264,7 @@ public class Main extends JFrame implements MouseListener{
 				
 		}
 		
+		//Board
 		for(i=0;i<ROW;i++) {
 			for(j=0;j<COL;j++) {
 				if(ex.equals(gameBoard.getBoardButton(i, j))) {
@@ -272,10 +284,8 @@ public class Main extends JFrame implements MouseListener{
 						gameBoard.getBoardButton(i, j).setIcon(null);
 						System.out.println(keep);
 						showAllPlace();
-						flagSelect=false;
 						hand.getHandButton(memhand).setBackground(Color.CYAN);
 						hand.getHandButton(memhand).setText("");
-						wordList+=keep;
 						keep="";
 						
 						startRow=i;
@@ -300,28 +310,31 @@ public class Main extends JFrame implements MouseListener{
 				}
 			}	
 		}
-				
+		
+		//Option
 		for(i=0;i<Op.getOpButtonLength();i++) {
 			int numplayer=numOfPlayer+1;
 			if(ex.equals(Op.getOpButton(i))) {
 				if(Op.getOpButton(i).getText().equals("Submit")) {
 					
-					checkWord(startRow, startCol, dir);
+					checkWord(startRow, startCol, dir, true);
 					for(String str : ArrWord){
 						hash.calScore(str);
+						Score+=hash.getScore();
 						System.out.println("Score of "+ str +": "+hash.getScore());							
 					}
+					TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
 					
-					player[numOfPlayer].setScore(hash.getScore());
+					player[numOfPlayer].setScore(Score);
 					player[numOfPlayer].setTextScore("Player " + numplayer + " Score: ");
 					
-					int handspace=hand.getHandSpace();
+					/*int handspace=hand.getHandSpace();
 					for(int k=0; k<handspace; k++) {
 						String L=String.valueOf(hand.getBag().getLetter());
 						if(hand.getBag().RemoveFromBag(L)) {
 							PickUp(L);
 						}else k--;
-					}
+					}*/
 					
 					if(numOfPlayer==0){
 						TUI.getTextF().setText("TURN PLAYER 2");
@@ -334,10 +347,12 @@ public class Main extends JFrame implements MouseListener{
 					if(flagDir) {
 						flagDir=false;
 					}
+					
 					hash.setScore(0);
 					ArrWord.removeAll(ArrWord);
 					startRow=-1;
 					startCol=-1;
+					Score=0;
 				}
 				
 				if(Op.getOpButton(i).getText().equals("Swap")) {
@@ -355,22 +370,25 @@ public class Main extends JFrame implements MouseListener{
 				}
 
 				if(Op.getOpButton(i).getText().equals("Check")) {
-					checkWord(startRow, startCol, dir);
+					checkWord(startRow, startCol, dir, false);
 					System.out.println("////// "+ArrWord);
 					for(String str : ArrWord) {
 						hash.calScore(str);
+						Score+=hash.getScore();
 						System.out.println("Score of "+str+": "+hash.getScore());
 					}
-					TUI.getTextCheck().setText("Check: " + valid);
+					TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
 					ArrWord.removeAll(ArrWord);
 					if(flagDir) {
 						flagDir=false;
 					}
+					Score=0;
 				}
 				
 			}
 		}
 		
+		//Back to menu
 		if(ex.equals(BacktoMenu)) {
 			GameMenu back=new GameMenu("Scrabble");
 			dispose();

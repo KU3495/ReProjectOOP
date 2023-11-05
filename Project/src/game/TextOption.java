@@ -15,19 +15,19 @@ public class TextOption {
 	
 	public TextOption() {
 		//textF.setPreferredSize(new Dimension(280,270));
-		textF.setPreferredSize(new Dimension(280,40));
+		textF.setPreferredSize(new Dimension(340,40));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
 		textF.setText("TURN PLAYER 1");
 		
-		textCheck.setPreferredSize(new Dimension(280,40));
+		textCheck.setPreferredSize(new Dimension(340,40));
 		textCheck.setFont(new Font("Arial",Font.PLAIN, 30));
 		textCheck.setLineWrap(true);
 		textCheck.setEditable(false);
 		textCheck.setWrapStyleWord(true);
-		textCheck.setText("Check: ");
+		textCheck.setText("Valid:");
 	}
 	
 	public JTextArea getTextF() {

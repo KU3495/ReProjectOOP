@@ -9,11 +9,13 @@ import javax.swing.ScrollPaneConstants;
 
 public class Player {
 	private int Score=0;
+	private String[] Hand= new String[7];
 	
+	private Hand hand=new Hand();
 	private JTextArea textF=new JTextArea();
 	
 	public Player() {
-		textF.setPreferredSize(new Dimension(280,40));
+		textF.setPreferredSize(new Dimension(340,40));
 		textF.setFont(new Font("Arial",Font.PLAIN, 30));
 		textF.setLineWrap(true);
 		textF.setEditable(false);
@@ -40,4 +42,11 @@ public class Player {
 		textF.setText(text+String.valueOf(Score));
 	}
 	
+	public void saveHand(String letter,int index) {
+		Hand[index]=letter;
+	}
+	
+	public Hand getHand() {
+		return hand;
+	}
 }
