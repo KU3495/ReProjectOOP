@@ -27,7 +27,7 @@ public class Main extends JFrame implements MouseListener{
 	private Dict dictionary = null;
 	private HashLetter hash = null;
 	private String keep ="";
-	private boolean valid = true, flagDir=false, flagSwap=false;
+	private boolean valid = true, flagDir=false, flagSwap=false, flagSkip=false;
 	private int memhand=0, dir=0;;
 	private int numOfPlayer=0;
 	private int i,j,Score=0;
@@ -268,7 +268,7 @@ public class Main extends JFrame implements MouseListener{
 		JButton ex = (JButton)e.getSource();
 
 		//Hand
-		if(!flagSwap) {
+		if(!flagSwap && !flagSkip) {
 			for(i=0;i<hand.getHandButtonLength();i++) {
 				if(ex.equals(hand.getHandButton(i))) {
 					if(hand.getHandButton(i).getBackground().equals(Color.RED)){
@@ -286,7 +286,7 @@ public class Main extends JFrame implements MouseListener{
 				}
 				
 			}			
-		}else {
+		}else if(!flagSkip){
 			for(i=0;i<hand.getHandButtonLength();i++) {
 				if(ex.equals(hand.getHandButton(i))) {
 					if(hand.getHandButton(i).getBackground().equals(Color.YELLOW)){
@@ -350,7 +350,7 @@ public class Main extends JFrame implements MouseListener{
 		int numplayer=numOfPlayer+1;
 		
 		//Submit
-		if(ex.equals(Op.getOpButton(0)) && !flagSwap) {
+		if(ex.equals(Op.getOpButton(0)) && !flagSwap && !flagSkip) {
 					
 			checkWord(startRow, startCol, dir, true);
 			for(String str : ArrWord){
@@ -393,11 +393,12 @@ public class Main extends JFrame implements MouseListener{
 		}
 		
 		//Swap
-		if(ex.equals(Op.getOpButton(1))) {
+		if(ex.equals(Op.getOpButton(1)) && !flagSkip) {
 			if(Op.getOpButton(1).getBackground().equals(Color.YELLOW)) {
 				Op.getOpButton(1).setBackground(Color.WHITE);
 				if(Swap()) {
-					Op.getOpButton(2).setBackground(Color.CYAN);					
+					Op.getOpButton(2).setBackground(Color.CYAN);
+					flagSkip=true;
 				}
 				flagSwap=false;
 			}else {
@@ -416,10 +417,11 @@ public class Main extends JFrame implements MouseListener{
 				numOfPlayer=0;
 			}
 			Op.getOpButton(2).setBackground(Color.WHITE);
+			flagSkip=false;
 		}
 		
 		//Check
-		if(ex.equals(Op.getOpButton(3)) && !flagSwap) {
+		if(ex.equals(Op.getOpButton(3)) && !flagSwap && !flagSkip) {
 			checkWord(startRow, startCol, dir, false);
 			System.out.println("////// "+ArrWord);
 			for(String str : ArrWord) {
