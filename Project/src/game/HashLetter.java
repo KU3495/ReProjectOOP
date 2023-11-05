@@ -39,18 +39,24 @@ public class HashLetter {
 				Keep=tileScore.get(word.substring(i, i+1))*3;
 				break;
 			case 3:
+				Keep=tileScore.get(word.substring(i, i+1));
+				Multi=2;
+				break;
 			case 4:
-				Multi=Sp.get(i);
+				Keep=tileScore.get(word.substring(i, i+1));
+				Multi=3;
 				break;
 			default:
 				Keep=tileScore.get(word.substring(i, i+1));
 				break;
 			}
-			System.out.println(i+" ////// "+ Sp.get(i)+" "+ Keep);
-			score+=Keep*Multi;
+			System.out.println(i+" ////// "+ Sp.get(i)+" "+ Keep+" Multi: "+Multi);
+			score+=Keep;
 			temp+=" ";
 			
 		}
+		System.out.println("BeScore: "+score);
+		score=score*Multi;
 		System.out.println("\nIn calScore met "+temp+" "+score);
 	}
 	

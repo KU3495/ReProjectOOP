@@ -29,6 +29,7 @@ public class TileBag {
 		if(tilebag.containsKey(letter) && tilebag.get(letter)>0) {
 			int L=tilebag.get(letter)-1;
 			tilebag.put(letter, L);
+			System.out.println("Afvalue: "+tilebag.get(letter)+ " get: "+ tilebag.get(letter));
 			return true;
 		}
 		return false;
@@ -45,13 +46,11 @@ public class TileBag {
 		System.out.println("Random: "+randomchar);
 		String randomLetter=String.valueOf(randomchar);
 		
-		if(tilebag.get(randomLetter)>0) {
-			System.out.println("value: "+tilebag.get(randomLetter));
-			int L=tilebag.get(randomLetter)-1;
-			tilebag.put(String.valueOf(randomLetter), L);
-			System.out.println("Afvalue: "+tilebag.get(randomLetter)+ " get: "+ tilebag.get(randomLetter));
+		System.out.println("Bevalue: "+tilebag.get(randomLetter));
+		
+		if(RemoveFromBag(randomLetter)) {
 			return randomLetter;
-		}return "-";
+		}else return "-";
 	}
 	
 	public void DisplayBag() {
@@ -66,5 +65,29 @@ public class TileBag {
 	
 	public Hashtable<String, Integer> gettilebag(){
 		return tilebag;
+	}
+	
+	/*public boolean checkBag() {
+		int i;
+		for(i=0; i<26; i++) {
+			char L=(char) (i+'A');
+			String letter=String.valueOf(L);
+			if(tilebag.get(letter)>0) {
+				return true;
+			}
+		}
+		return false;
+	}*/
+
+	public boolean checkBag() {
+		int i;
+		for(i=0; i<26; i++) {
+			char L=(char) (i+'A');
+			String letter=String.valueOf(L);
+			if(tilebag.get(letter)>0) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -44,7 +44,7 @@ public class GameMenu extends JFrame implements MouseListener{
 		mainPanel.add(mainButton[2]);
 		MainPane.add(mainPanel);
 
-		setSize(1000,800);
+		setSize(400,300);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -55,12 +55,6 @@ public class GameMenu extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
 		if(ex.equals(mainButton[0])) {
 			Main start=new Main("Scrabble");
@@ -68,12 +62,18 @@ public class GameMenu extends JFrame implements MouseListener{
 		}
 		
 		if(ex.equals(mainButton[1])) {
-		
+			How2Play how=new How2Play("How To Play");
+			dispose();
 		}
 		
 		if(ex.equals(mainButton[2])) {
 			dispose();
 		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 	}
 
 	@Override

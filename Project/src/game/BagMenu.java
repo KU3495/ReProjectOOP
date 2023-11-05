@@ -23,6 +23,8 @@ public class BagMenu extends JFrame{
 		letter.setEditable(false);
 		letter.setWrapStyleWord(true);
 		
+		System.out.println(tilebag);
+		
 		for(int i=0; i<26; i++) {
 			char L=(char) (i+'A');
 			String letter=String.valueOf(L);

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -29,7 +30,7 @@ public class Main extends JFrame implements MouseListener{
 	
 	private String keep ="";
 	private boolean valid = true, flagDir=false, flagSwap=false, flagSkip=false;
-	private int i, j, Score=0, memhand=0, dir=0, numOfPlayer=0, countOnBoard=0;
+	private int i, j, Score=0, memhand=0, dir=0, numOfPlayer=0, countOnBoard=0, countSkip=0;
 	private int dirCol1=0,dirCol2=0,dirRow1=0,dirRow2=0;
 	private int startRow=0, startCol=0;
 	private ArrayList<Integer> Special=new ArrayList<Integer>();
@@ -97,7 +98,7 @@ public class Main extends JFrame implements MouseListener{
 				k--;
 			}else {
 				player[0].setArrHand(random);
-				hand.getBag().RemoveFromBag(random);				
+				//hand.getBag().RemoveFromBag(random);				
 			}
 		}
 		System.out.println("");
@@ -108,7 +109,7 @@ public class Main extends JFrame implements MouseListener{
 				k--;
 			}else {
 				player[1].setArrHand(random);
-				hand.getBag().RemoveFromBag(random);
+				//hand.getBag().RemoveFromBag(random);
 			}
 		}
 		System.out.println("");
@@ -195,8 +196,10 @@ public class Main extends JFrame implements MouseListener{
 							word2+=gameBoard.getBoardButton(i, j).getText();
 							i++;
 						}
-						if(dictionary.checkWord(word2))
+						if(dictionary.checkWord(word2)) {
 							ArrWord.add(word2);
+							valid = true;							
+						}
 						else
 							valid = false;
 						
@@ -205,8 +208,9 @@ public class Main extends JFrame implements MouseListener{
 					
 					if(flagSubmmit) {
 						gameBoard.getBoardButton(i, j).setBackground(Color.GREEN);
-						status[i][j]=1;		
+						status[i][j]=1;
 					}
+					
 					j++;
 					word2="";
 				}
@@ -215,6 +219,7 @@ public class Main extends JFrame implements MouseListener{
 					ArrWord.add(word1);
 					System.out.println("In here");
 					System.out.println(ArrWord);
+					valid = true;
 				}
 				else
 					valid = false;
@@ -255,8 +260,10 @@ public class Main extends JFrame implements MouseListener{
 							j++;
 						}
 						
-						if(dictionary.checkWord(word2))
+						if(dictionary.checkWord(word2)) {
 							ArrWord.add(word2);
+							valid = true;
+						}
 						else
 							valid = false;
 						
@@ -275,6 +282,7 @@ public class Main extends JFrame implements MouseListener{
 					ArrWord.add(word1);
 					System.out.println("In here");
 					System.out.println(ArrWord);
+					valid = true;
 				}else valid = false;
 			}
 		}catch(Exception ex) {
@@ -296,7 +304,7 @@ public class Main extends JFrame implements MouseListener{
 				int handspace=hand.getHandSpace();
 				for(int k=0; k<handspace; k++) {
 					L=String.valueOf(hand.getBag().getLetter());
-					if(hand.getBag().RemoveFromBag(L)) {
+					if(!L.equals("-")) {
 						//hand.getBag().RemoveFromBag(L);
 						PickUp(L);
 					}else k--;
@@ -377,22 +385,32 @@ public class Main extends JFrame implements MouseListener{
 						
 						startRow=i;
 						startCol=j;
+						countOnBoard++;
 						
+						int N=i-1, S=i+1, W=j-1, E=j+1;
 						if(!flagDir) {
 							System.out.println(i+" "+j);
 							dirRow1=i;
 							dirCol1=j;
+							System.out.println("+++Check+++");
+							if(status[N][j]==1 || status[S][j]==1) {
+								System.out.println("//////Check//////");
+								dir=1;
+							}else if(status[i][W]==1 || status[i][E]==1){
+								System.out.println("------Check-----");
+								dir=0;
 							flagDir=true;
 						}else {
+							System.out.println(flagDir+" CountOnBoard: "+ countOnBoard +" Dir: "+dir);
 							if(dirRow1==i && dirCol1!=j) {
 								System.out.println(i+"++++"+j);
 								dir=0;
 							}else if(dirRow1!=i && dirCol1==j) {
 								System.out.println(i+"----"+j);
-								dir=1;								
+								dir=1;						
+							}
 							}
 						}
-						countOnBoard++;
 						
 					}
 					
@@ -424,7 +442,7 @@ public class Main extends JFrame implements MouseListener{
 			int handspace=hand.getHandSpace();
 			for(int k=0; k<handspace; k++) {
 				String L=String.valueOf(hand.getBag().getLetter());
-				if(hand.getBag().RemoveFromBag(L)) {
+				if(!L.equals("-")) {
 					//hand.getBag().RemoveFromBag(L);
 					PickUp(L);
 				}else k--;
@@ -446,6 +464,18 @@ public class Main extends JFrame implements MouseListener{
 					
 			if(flagDir) {
 				flagDir=false;
+			}
+			
+			if(hand.getBag().checkBag() && countSkip!=2) {
+				countSkip++;
+			}else if(!hand.getBag().checkBag() && countSkip==2){
+				if(player[0].getScore()>player[1].getScore()) {
+					JOptionPane.showMessageDialog(null,"PLAYER 1 WIN","Message",JOptionPane.INFORMATION_MESSAGE);
+				}else if(player[0].getScore()<player[1].getScore()){
+					JOptionPane.showMessageDialog(null,"PLAYER 2 WIN","Message",JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null,"DRAW","Message",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 					
 			hash.setScore(0);
@@ -497,6 +527,18 @@ public class Main extends JFrame implements MouseListener{
 			flagSkip=false;
 			keep="";
 			SetHand();
+			
+			if(hand.getBag().checkBag() && countSkip!=2) {
+				countSkip++;
+			}else if(!hand.getBag().checkBag() && countSkip==2){
+				if(player[0].getScore()>player[1].getScore()) {
+					JOptionPane.showMessageDialog(null,"PLAYER 1 WIN","Message",JOptionPane.INFORMATION_MESSAGE);
+				}else if(player[0].getScore()<player[1].getScore()){
+					JOptionPane.showMessageDialog(null,"PLAYER 2 WIN","Message",JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					JOptionPane.showMessageDialog(null,"DRAW","Message",JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
 		}
 		
 		//Check
@@ -520,11 +562,12 @@ public class Main extends JFrame implements MouseListener{
 		
 		//Back to menu
 		if(ex.equals(BacktoMenu)) {
-			GameMenu back=new GameMenu("Scrabble");
+			GameMenu menu=new GameMenu("Scrabble");
 			dispose();
 		}
 		
 		if(ex.equals(BagPack)) {
+			System.out.println(hand.getBag().gettilebag());
 			BagMenu bag=new BagMenu("Tilebag",hand.getBag().gettilebag());
 		}
 	}
