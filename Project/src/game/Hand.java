@@ -15,20 +15,7 @@ public class Hand {
 	private JButton[] handButton=new JButton[7];
 	private JPanel HandPanel=new JPanel();
 	private TileBag bag=null;
-	private int[] handarray=new int[7];
 	private int i=0,j=0;
-	public void RandomHand() {
-		//Random random = new Random();
-		/*handButton[0] = new JButton("I");
-		handButton[1] = new JButton("S");
-		handButton[2] = new JButton("H");
-		handButton[3] = new JButton("T");
-		handButton[4] = new JButton("I");
-		handButton[5] = new JButton("S");
-		handButton[6] = new JButton("S");*/
-		
-		
-	}
 	public Hand() {
 		HandPanel.setPreferredSize(new Dimension(600,50));
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
