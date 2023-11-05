@@ -24,21 +24,25 @@ public class GameMenu extends JFrame implements MouseListener{
 
 		mainPanel.setPreferredSize(new Dimension(200,200));
 		//mainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		mainPanel.setLayout(new GridLayout(3,1,0,5));
+		mainPanel.setLayout(new GridLayout(4,1,0,5));
 		mainPanel.setMaximumSize(new Dimension(200, 200));
 		mainButton[0]= new JButton("Start");
 		mainButton[0].addMouseListener(this);
-		mainButton[1]= new JButton("Exit");
+		mainButton[1]= new JButton("How to play");
+		mainButton[2]= new JButton("Exit");
+		mainButton[2].addMouseListener(this);
 		Title.setText("<html><h1><strong><i>Scrabble</i></strong></h1></html>");
 
 		mainPanel.add(Title);
 		mainPanel.add(mainButton[0]);
 		mainPanel.add(mainButton[1]);
+		mainPanel.add(mainButton[2]);
 		MainPane.add(mainPanel);
 
 		setSize(1000,800);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
@@ -53,11 +57,13 @@ public class GameMenu extends JFrame implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
-		for(int i=0;i<mainButton.length;i++) {
-			if(ex.equals(mainButton[i])) {
-				Main start=new Main("Scrabble");
-				dispose();
-			}
+		if(ex.equals(mainButton[0])) {
+			Main start=new Main("Scrabble");
+			dispose();
+		}
+			
+		if(ex.equals(mainButton[2])) {
+			dispose();
 		}
 	}
 

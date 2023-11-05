@@ -7,3 +7,4 @@ public class RunGame {
 		//GameMenu opengame= new GameMenu("Scrabble");
 	}
 }
+

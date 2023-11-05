@@ -19,13 +19,13 @@ public class Hand {
 	private int i=0,j=0;
 	public void RandomHand() {
 		//Random random = new Random();
-		handButton[0] = new JButton("I");
+		/*handButton[0] = new JButton("I");
 		handButton[1] = new JButton("S");
 		handButton[2] = new JButton("H");
 		handButton[3] = new JButton("T");
 		handButton[4] = new JButton("I");
 		handButton[5] = new JButton("S");
-		handButton[6] = new JButton("S");
+		handButton[6] = new JButton("S");*/
 		
 		try {
 			bag=new TileBag();
@@ -35,13 +35,12 @@ public class Hand {
 		}
 		
 		for(i=0; i<7; i++) {
-			String random="";
 			//char randomLetter = (char) (random.nextInt(26) + 'A');
 			//handButton[i]= new JButton(String.valueOf(randomLetter));
 			
-			/*random=String.valueOf(bag.getLetter());
+			String random=String.valueOf(bag.getLetter());
 			bag.RemoveFromBag(random);
-			handButton[i] = new JButton(random);*/
+			handButton[i] = new JButton(random);
 			
 			handButton[i].setBackground(Color.CYAN);
 			HandPanel.add(handButton[i]);

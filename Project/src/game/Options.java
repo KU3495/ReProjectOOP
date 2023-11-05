@@ -9,17 +9,13 @@ import javax.swing.JPanel;
 
 public class Options {
 	private JPanel OptionPanel=new JPanel();
-	private JButton Submit=new JButton("Submit");
-	private JButton Swap=new JButton("Swap");
-	private JButton Skip=new JButton("Skip");
-	private JButton Check=new JButton("Check");
 	private JButton[] OpButton=new JButton[4];
 	
 	public Options() {
-		OpButton[0]=Submit;
-		OpButton[1]=Swap;
-		OpButton[2]=Skip;
-		OpButton[3]=Check;
+		OpButton[0]=new JButton("Submit");
+		OpButton[1]=new JButton("Swap");
+		OpButton[2]=new JButton("Skip");
+		OpButton[3]=new JButton("Check");
 		
 		OptionPanel.add(OpButton[0]);
 		OptionPanel.add(OpButton[1]);

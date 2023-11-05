@@ -312,80 +312,77 @@ public class Main extends JFrame implements MouseListener{
 		}
 		
 		//Option
-		for(i=0;i<Op.getOpButtonLength();i++) {
-			int numplayer=numOfPlayer+1;
-			if(ex.equals(Op.getOpButton(i))) {
-				if(Op.getOpButton(i).getText().equals("Submit")) {
+		int numplayer=numOfPlayer+1;
+		if(ex.equals(Op.getOpButton(0))) {
 					
-					checkWord(startRow, startCol, dir, true);
-					for(String str : ArrWord){
-						hash.calScore(str);
-						Score+=hash.getScore();
-						System.out.println("Score of "+ str +": "+hash.getScore());							
-					}
-					TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
-					
-					player[numOfPlayer].setScore(Score);
-					player[numOfPlayer].setTextScore("Player " + numplayer + " Score: ");
-					
-					/*int handspace=hand.getHandSpace();
-					for(int k=0; k<handspace; k++) {
-						String L=String.valueOf(hand.getBag().getLetter());
-						if(hand.getBag().RemoveFromBag(L)) {
-							PickUp(L);
-						}else k--;
-					}*/
-					
-					if(numOfPlayer==0){
-						TUI.getTextF().setText("TURN PLAYER 2");
-						numOfPlayer=1;
-					}else if(numOfPlayer==1){
-						TUI.getTextF().setText("TURN PLAYER 1");
-						numOfPlayer=0;
-					}
-					
-					if(flagDir) {
-						flagDir=false;
-					}
-					
-					hash.setScore(0);
-					ArrWord.removeAll(ArrWord);
-					startRow=-1;
-					startCol=-1;
-					Score=0;
-				}
-				
-				if(Op.getOpButton(i).getText().equals("Swap")) {
-					
-				}
-				
-				if(Op.getOpButton(i).getText().equals("Skip")) {
-					if(numOfPlayer==0){
-						TUI.getTextF().setText("TURN PLAYER 2");
-						numOfPlayer=1;
-					}else if(numOfPlayer==1){
-						TUI.getTextF().setText("TURN PLAYER 1");
-						numOfPlayer=0;
-					}
-				}
-
-				if(Op.getOpButton(i).getText().equals("Check")) {
-					checkWord(startRow, startCol, dir, false);
-					System.out.println("////// "+ArrWord);
-					for(String str : ArrWord) {
-						hash.calScore(str);
-						Score+=hash.getScore();
-						System.out.println("Score of "+str+": "+hash.getScore());
-					}
-					TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
-					ArrWord.removeAll(ArrWord);
-					if(flagDir) {
-						flagDir=false;
-					}
-					Score=0;
-				}
-				
+			checkWord(startRow, startCol, dir, true);
+			for(String str : ArrWord){
+				hash.calScore(str);
+				Score+=hash.getScore();
+				System.out.println("Score of "+ str +": "+hash.getScore());							
 			}
+			TUI.getTextCheck().setText("Valid: " + valid + " Score: " + Score);
+
+			player[numOfPlayer].setScore(Score);
+			player[numOfPlayer].setTextScore("Player " + numplayer + " Score: ");
+				
+			int handspace=hand.getHandSpace();
+			for(int k=0; k<handspace; k++) {
+				String L=String.valueOf(hand.getBag().getLetter());
+				if(hand.getBag().RemoveFromBag(L)) {
+					PickUp(L);
+				}else k--;
+			}
+			
+			if(Score!=0) {
+				if(numOfPlayer==0){
+					TUI.getTextF().setText("TURN PLAYER 2");
+					numOfPlayer=1;
+				}else if(numOfPlayer==1){
+					TUI.getTextF().setText("TURN PLAYER 1");
+					numOfPlayer=0;
+				}				
+			}
+					
+			if(flagDir) {
+				flagDir=false;
+			}
+					
+			hash.setScore(0);
+			ArrWord.removeAll(ArrWord);
+			startRow=-1;
+			startCol=-1;
+			Score=0;
+		}
+				
+		if(ex.equals(Op.getOpButton(1))) {
+				
+		}
+				
+		if(ex.equals(Op.getOpButton(2))) {
+			if(numOfPlayer==0){
+				TUI.getTextF().setText("TURN PLAYER 2");
+				numOfPlayer=1;
+			}else if(numOfPlayer==1){
+				TUI.getTextF().setText("TURN PLAYER 1");
+				numOfPlayer=0;
+			}
+		}
+
+		if(ex.equals(Op.getOpButton(3))) {
+			checkWord(startRow, startCol, dir, false);
+			System.out.println("////// "+ArrWord);
+			for(String str : ArrWord) {
+				hash.calScore(str);
+				Score+=hash.getScore();
+				System.out.println("Score of "+str+": "+hash.getScore());
+			}
+			TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
+			ArrWord.removeAll(ArrWord);
+			if(flagDir) {
+				flagDir=false;
+			}
+			Score=0;
 		}
 		
 		//Back to menu
