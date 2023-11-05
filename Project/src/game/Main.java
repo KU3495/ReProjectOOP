@@ -47,7 +47,7 @@ public class Main extends JFrame implements MouseListener{
 			dictionary = new Dict();
 			hash = new HashLetter();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		Container MainPane= getContentPane();
