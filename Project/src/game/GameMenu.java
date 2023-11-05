@@ -26,12 +26,17 @@ public class GameMenu extends JFrame implements MouseListener{
 		//mainPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		mainPanel.setLayout(new GridLayout(4,1,0,5));
 		mainPanel.setMaximumSize(new Dimension(200, 200));
+		
+		Title.setText("<html><h1><strong><i>Scrabble</i></strong></h1></html>");
+
 		mainButton[0]= new JButton("Start");
 		mainButton[0].addMouseListener(this);
+		
 		mainButton[1]= new JButton("How to play");
+		mainButton[1].addMouseListener(this);
+		
 		mainButton[2]= new JButton("Exit");
 		mainButton[2].addMouseListener(this);
-		Title.setText("<html><h1><strong><i>Scrabble</i></strong></h1></html>");
 
 		mainPanel.add(Title);
 		mainPanel.add(mainButton[0]);
@@ -61,7 +66,11 @@ public class GameMenu extends JFrame implements MouseListener{
 			Main start=new Main("Scrabble");
 			dispose();
 		}
-			
+		
+		if(ex.equals(mainButton[1])) {
+		
+		}
+		
 		if(ex.equals(mainButton[2])) {
 			dispose();
 		}

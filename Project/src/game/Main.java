@@ -27,7 +27,7 @@ public class Main extends JFrame implements MouseListener{
 	private Dict dictionary = null;
 	private HashLetter hash = null;
 	private String keep ="";
-	private boolean valid = true, flagDir=false;
+	private boolean valid = true, flagDir=false, flagSwap=false;
 	private int memhand=0, dir=0;;
 	private int numOfPlayer=0;
 	private int i,j,Score=0;
@@ -240,28 +240,63 @@ public class Main extends JFrame implements MouseListener{
 		System.out.println(dir);
 	}
 	
-	
+	public boolean Swap() {
+		boolean conFirmSwap=false;
+		int i;
+		String L;
+		for(i=0; i<7; i++) {
+			if(hand.getHandButton(i).getBackground().equals(Color.YELLOW)) {
+				L=hand.getHandButton(i).getText();
+				hand.getBag().AddToBag(L);
+				hand.getHandButton(i).setText("");
+				hand.getHandButton(i).setBackground(Color.CYAN);
+				int handspace=hand.getHandSpace();
+				for(int k=0; k<handspace; k++) {
+					L=String.valueOf(hand.getBag().getLetter());
+					if(hand.getBag().RemoveFromBag(L)) {
+						PickUp(L);
+					}else k--;
+				}
+				conFirmSwap=true;
+			}
+		}
+		return conFirmSwap;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JButton ex = (JButton)e.getSource();
-		
+
 		//Hand
-		for(i=0;i<hand.getHandButtonLength();i++) {
-			if(ex.equals(hand.getHandButton(i))) {
-				if(hand.getHandButton(i).getBackground().equals(Color.RED)){
-					keep="";
-					System.out.println("In Here");
-					hand.getHandButton(i).setBackground(Color.CYAN);
-				}else{
-					hand.getHandButton(memhand).setBackground(Color.CYAN);
-					hand.getHandButton(i).setBackground(Color.RED);
-					keep=String.valueOf(hand.getHandButton(i).getText());
-					System.out.println("Test "+keep);
-					memhand=i;
+		if(!flagSwap) {
+			for(i=0;i<hand.getHandButtonLength();i++) {
+				if(ex.equals(hand.getHandButton(i))) {
+					if(hand.getHandButton(i).getBackground().equals(Color.RED)){
+						keep="";
+						System.out.println("In Here");
+						hand.getHandButton(i).setBackground(Color.CYAN);
+					}else{
+						hand.getHandButton(memhand).setBackground(Color.CYAN);
+						hand.getHandButton(i).setBackground(Color.RED);
+						keep=String.valueOf(hand.getHandButton(i).getText());
+						System.out.println("Test "+keep);
+						memhand=i;
+					}
+					
 				}
 				
+			}			
+		}else {
+			for(i=0;i<hand.getHandButtonLength();i++) {
+				if(ex.equals(hand.getHandButton(i))) {
+					if(hand.getHandButton(i).getBackground().equals(Color.YELLOW)){
+						hand.getHandButton(i).setBackground(Color.CYAN);
+					}else{
+						hand.getHandButton(i).setBackground(Color.YELLOW);
+					}
+				}
+					
 			}
-				
 		}
 		
 		//Board
@@ -313,7 +348,9 @@ public class Main extends JFrame implements MouseListener{
 		
 		//Option
 		int numplayer=numOfPlayer+1;
-		if(ex.equals(Op.getOpButton(0))) {
+		
+		//Submit
+		if(ex.equals(Op.getOpButton(0)) && !flagSwap) {
 					
 			checkWord(startRow, startCol, dir, true);
 			for(String str : ArrWord){
@@ -354,12 +391,23 @@ public class Main extends JFrame implements MouseListener{
 			startCol=-1;
 			Score=0;
 		}
-				
+		
+		//Swap
 		if(ex.equals(Op.getOpButton(1))) {
-				
+			if(Op.getOpButton(1).getBackground().equals(Color.YELLOW)) {
+				Op.getOpButton(1).setBackground(Color.WHITE);
+				if(Swap()) {
+					Op.getOpButton(2).setBackground(Color.CYAN);					
+				}
+				flagSwap=false;
+			}else {
+				Op.getOpButton(1).setBackground(Color.YELLOW);
+				flagSwap=true;
+			}
 		}
-				
-		if(ex.equals(Op.getOpButton(2))) {
+		
+		//Skip
+		if(ex.equals(Op.getOpButton(2)) && !flagSwap) {
 			if(numOfPlayer==0){
 				TUI.getTextF().setText("TURN PLAYER 2");
 				numOfPlayer=1;
@@ -367,9 +415,11 @@ public class Main extends JFrame implements MouseListener{
 				TUI.getTextF().setText("TURN PLAYER 1");
 				numOfPlayer=0;
 			}
+			Op.getOpButton(2).setBackground(Color.WHITE);
 		}
-
-		if(ex.equals(Op.getOpButton(3))) {
+		
+		//Check
+		if(ex.equals(Op.getOpButton(3)) && !flagSwap) {
 			checkWord(startRow, startCol, dir, false);
 			System.out.println("////// "+ArrWord);
 			for(String str : ArrWord) {
@@ -377,7 +427,7 @@ public class Main extends JFrame implements MouseListener{
 				Score+=hash.getScore();
 				System.out.println("Score of "+str+": "+hash.getScore());
 			}
-			TUI.getTextCheck().setText("Valid" + valid + " Score: " + Score);
+			TUI.getTextCheck().setText("Valid: " + valid + " Score: " + Score);
 			ArrWord.removeAll(ArrWord);
 			if(flagDir) {
 				flagDir=false;

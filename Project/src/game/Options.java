@@ -16,6 +16,10 @@ public class Options {
 		OpButton[1]=new JButton("Swap");
 		OpButton[2]=new JButton("Skip");
 		OpButton[3]=new JButton("Check");
+		int i;
+		for(i=0; i<4; i++) {
+			OpButton[i].setBackground(Color.WHITE);
+		}
 		
 		OptionPanel.add(OpButton[0]);
 		OptionPanel.add(OpButton[1]);

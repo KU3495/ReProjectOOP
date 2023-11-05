@@ -24,14 +24,18 @@ public class TileBag {
 		}
 	}
 	
-	public boolean RemoveFromBag(String word){
-		if(tilebag.containsKey(word) && tilebag.get(word)>0) {
-			int w=0;
-			w=tilebag.get(word)-1;
-			tilebag.put(word, w);
+	public boolean RemoveFromBag(String letter){
+		if(tilebag.containsKey(letter) && tilebag.get(letter)>0) {
+			int L=tilebag.get(letter)-1;
+			tilebag.put(letter, L);
 			return true;
 		}
 		return false;
+	}
+	
+	public void AddToBag(String letter) {
+		int L=tilebag.get(letter)+1;
+		tilebag.put(letter, L);
 	}
 	
 	public char getLetter() {
