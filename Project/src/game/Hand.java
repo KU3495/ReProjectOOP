@@ -21,7 +21,7 @@ public class Hand {
 		HandPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		HandPanel.setLayout(new GridLayout(1,7));
 		HandPanel.setMaximumSize(new Dimension(600, 50));
-		HandPanel.setBackground(Color.BLACK);
+		HandPanel.setBackground(new Color(255, 223, 223));
 		try {
 			bag=new TileBag();
 		} catch (IOException e) {

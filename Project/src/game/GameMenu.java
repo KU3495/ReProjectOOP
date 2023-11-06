@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -27,23 +28,28 @@ public class GameMenu extends JFrame implements MouseListener{
 		mainPanel.setLayout(new GridLayout(4,1,0,5));
 		mainPanel.setMaximumSize(new Dimension(200, 200));
 		
-		Title.setText("<html><h1><strong><i>Scrabble</i></strong></h1></html>");
+		Title.setText("<html><h1><strong><i>Scrabble Game</i></strong></h1></html>");
 
 		mainButton[0]= new JButton("Start");
 		mainButton[0].addMouseListener(this);
+		mainButton[0].setBackground(new Color(135, 196, 255));
 		
 		mainButton[1]= new JButton("How to play");
 		mainButton[1].addMouseListener(this);
+		mainButton[1].setBackground(new Color(224, 244, 255));
 		
 		mainButton[2]= new JButton("Exit");
 		mainButton[2].addMouseListener(this);
+		mainButton[2].setBackground(new Color(135, 196, 255));
 
 		mainPanel.add(Title);
 		mainPanel.add(mainButton[0]);
 		mainPanel.add(mainButton[1]);
 		mainPanel.add(mainButton[2]);
+		mainPanel.setBackground(new Color(255, 238, 217));
 		MainPane.add(mainPanel);
-
+		
+		MainPane.setBackground(new Color(255, 238, 217));
 		setSize(400,300);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

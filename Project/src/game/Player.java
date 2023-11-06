@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class Player {
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
 		textF.setText(String.valueOf(Score));
+		textF.setBackground(new Color(255, 223, 223));
 		
 		for(int i=0; i<7; i++) {
 			Hand[i]="";

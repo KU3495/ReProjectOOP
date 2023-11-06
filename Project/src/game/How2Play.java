@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -21,6 +22,8 @@ public class How2Play extends JFrame implements MouseListener{
 		image.setIcon(how);
 		back.setPreferredSize(new Dimension(50,50));
 		back.addMouseListener(this);
+		back.setBackground(new Color(233, 87, 147));
+		back.setForeground(Color.WHITE);
 		MainPane.add(back);
 		MainPane.add(image);
 		

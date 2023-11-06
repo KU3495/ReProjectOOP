@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,6 +22,7 @@ public class TextOption {
 		textF.setEditable(false);
 		textF.setWrapStyleWord(true);
 		textF.setText("TURN PLAYER 1");
+		textF.setBackground(new Color(255, 223, 223));
 		
 		textCheck.setPreferredSize(new Dimension(340,40));
 		textCheck.setFont(new Font("Arial",Font.PLAIN, 30));
@@ -28,6 +30,7 @@ public class TextOption {
 		textCheck.setEditable(false);
 		textCheck.setWrapStyleWord(true);
 		textCheck.setText("Valid:");
+		textCheck.setBackground(new Color(255, 223, 223));
 	}
 	
 	public JTextArea getTextF() {

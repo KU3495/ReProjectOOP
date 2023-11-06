@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.Hashtable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -17,7 +18,7 @@ public class BagMenu extends JFrame{
 		super(title);
 		Container MainPane= getContentPane();
 		
-		letter.setPreferredSize(new Dimension(500,600));
+		letter.setPreferredSize(new Dimension(100,100));
 		letter.setFont(new Font("Arial",Font.PLAIN, 20));
 		letter.setLineWrap(true);
 		letter.setEditable(false);
@@ -36,7 +37,8 @@ public class BagMenu extends JFrame{
 		letter.setText(Text);
 		
 		MainPane.add(letter);
-		setSize(500, 500);
+		setSize(300, 350);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

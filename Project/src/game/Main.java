@@ -83,8 +83,11 @@ public class Main extends JFrame implements MouseListener{
 		TextPanel.add(TUI.getTextCheck());
 		TextPanel.add(TUI.getTextF());
 		BagPack.addMouseListener(this);
+		BagPack.setBackground(new Color(241, 180, 187));
 		TextPanel.add(BagPack);
-		TextPanel.setBackground(Color.BLACK);
+		TextPanel.setBackground(new Color(255, 223, 223));
+		BacktoMenu.setBackground(new Color(233, 87, 147));
+		BacktoMenu.setForeground(Color.WHITE);
 		
 		MainPane.add(gameBoard.getBoard()); //ADD BOARD
 		MainPane.add(TextPanel); //ADD TEXTAREA
@@ -118,7 +121,7 @@ public class Main extends JFrame implements MouseListener{
 		
 		setSize(1055,800);
 		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
-		MainPane.setBackground(Color.BLACK);
+		MainPane.setBackground(new Color(255, 223, 223));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
