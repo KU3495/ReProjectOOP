@@ -126,19 +126,19 @@ public class Main extends JFrame implements MouseListener{
 	}
 	
 	public void showAllPlace() {
-		int rows,cals;
+		int rows,cols;
 		for(rows=0; rows<ROW; rows++) {
-			for(cals=0; cals<COL; cals++) {
-				int N=cals+1,E=rows+1,S=cals-1,W=rows-1;
+			for(cols=0; cols<COL; cols++) {
+				int N = rows - 1, E = cols + 1, S = rows + 1, W = cols - 1;
 				try {
-					if(gameBoard.getBoardButton(E, cals).getText()!=""
-					|| gameBoard.getBoardButton(W, cals).getText()!="" 
-					|| gameBoard.getBoardButton(rows, N).getText()!="" 
-					|| gameBoard.getBoardButton(rows, S).getText()!="") {
+					if(gameBoard.getBoardButton(N, cols).getText()!=""
+					|| gameBoard.getBoardButton(S, cols).getText()!="" 
+					|| gameBoard.getBoardButton(rows, W).getText()!="" 
+					|| gameBoard.getBoardButton(rows, E).getText()!="") {
 
-						gameBoard.getBoardButton(rows,cals).setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+						gameBoard.getBoardButton(rows,cols).setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 					}else {
-						gameBoard.getBoardButton(rows,cals).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+						gameBoard.getBoardButton(rows,cols).setBorder(BorderFactory.createLineBorder(Color.BLACK));
 					}
 				}catch(Exception e) {}
 			}
